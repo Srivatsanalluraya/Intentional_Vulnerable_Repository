@@ -1,0 +1,1803 @@
+{
+  "generated_at": "2025-12-15T02:36:33.459103Z",
+  "reports": {
+    "bandit-report.json": {
+      "errors": [],
+      "generated_at": "2025-12-15T02:36:22Z",
+      "metrics": {
+        "./extreme.py": {
+          "CONFIDENCE.HIGH": 7,
+          "CONFIDENCE.LOW": 2,
+          "CONFIDENCE.MEDIUM": 1,
+          "CONFIDENCE.UNDEFINED": 0,
+          "SEVERITY.HIGH": 3,
+          "SEVERITY.LOW": 3,
+          "SEVERITY.MEDIUM": 4,
+          "SEVERITY.UNDEFINED": 0,
+          "loc": 47,
+          "nosec": 0,
+          "skipped_tests": 0
+        },
+        "_totals": {
+          "CONFIDENCE.HIGH": 7,
+          "CONFIDENCE.LOW": 2,
+          "CONFIDENCE.MEDIUM": 1,
+          "CONFIDENCE.UNDEFINED": 0,
+          "SEVERITY.HIGH": 3,
+          "SEVERITY.LOW": 3,
+          "SEVERITY.MEDIUM": 4,
+          "SEVERITY.UNDEFINED": 0,
+          "loc": 47,
+          "nosec": 0,
+          "skipped_tests": 0
+        }
+      },
+      "results": [
+        {
+          "code": "7 import os\n8 import subprocess\n9 import pickle\n",
+          "col_offset": 0,
+          "end_col_offset": 17,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Consider possible security implications associated with the subprocess module.",
+          "line_number": 8,
+          "line_range": [
+            8
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_imports.html#b404-import-subprocess",
+          "test_id": "B404",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "8 import subprocess\n9 import pickle\n10 import sqlite3\n",
+          "col_offset": 0,
+          "end_col_offset": 13,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 502,
+            "link": "https://cwe.mitre.org/data/definitions/502.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Consider possible security implications associated with pickle module.",
+          "line_number": 9,
+          "line_range": [
+            9
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_imports.html#b403-import-pickle",
+          "test_id": "B403",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "17 DB_USER = \"root\"\n18 DB_PASS = \"SuperSecret123\"\n19 API_KEY = \"abcd-1234-xyz\"\n",
+          "col_offset": 10,
+          "end_col_offset": 26,
+          "filename": "./extreme.py",
+          "issue_confidence": "MEDIUM",
+          "issue_cwe": {
+            "id": 259,
+            "link": "https://cwe.mitre.org/data/definitions/259.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Possible hardcoded password: 'SuperSecret123'",
+          "line_number": 18,
+          "line_range": [
+            18
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b105_hardcoded_password_string.html",
+          "test_id": "B105",
+          "test_name": "hardcoded_password_string"
+        },
+        {
+          "code": "23     # user_input = \"anything; rm -rf /\"\n24     os.system(f\"ping -c 4 {user_input}\")\n25 \n",
+          "col_offset": 4,
+          "end_col_offset": 40,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "Starting a process with a shell, possible injection detected, security issue.",
+          "line_number": 24,
+          "line_range": [
+            24
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b605_start_process_with_a_shell.html",
+          "test_id": "B605",
+          "test_name": "start_process_with_a_shell"
+        },
+        {
+          "code": "27 def execute_user_code(code):\n28     return eval(code)  # extremely dangerous\n29 \n",
+          "col_offset": 11,
+          "end_col_offset": 21,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Use of possibly insecure function - consider using safer ast.literal_eval.",
+          "line_number": 28,
+          "line_range": [
+            28
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_calls.html#b307-eval",
+          "test_id": "B307",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "31 def load_untrusted_data(blob):\n32     return pickle.loads(blob)  # can execute arbitrary code\n33 \n",
+          "col_offset": 11,
+          "end_col_offset": 29,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 502,
+            "link": "https://cwe.mitre.org/data/definitions/502.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+          "line_number": 32,
+          "line_range": [
+            32
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_calls.html#b301-pickle",
+          "test_id": "B301",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "38     # vulnerable string concatenation\n39     query = f\"SELECT * FROM users WHERE username = '{username}'\"\n40     return cur.execute(query).fetchall()\n",
+          "col_offset": 14,
+          "end_col_offset": 52,
+          "filename": "./extreme.py",
+          "issue_confidence": "LOW",
+          "issue_cwe": {
+            "id": 89,
+            "link": "https://cwe.mitre.org/data/definitions/89.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Possible SQL injection vector through string-based query construction.",
+          "line_number": 39,
+          "line_range": [
+            39
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b608_hardcoded_sql_expressions.html",
+          "test_id": "B608",
+          "test_name": "hardcoded_sql_expressions"
+        },
+        {
+          "code": "43 def weak_hash(password):\n44     return hashlib.md5(password.encode()).hexdigest()  # MD5 is broken\n45 \n",
+          "col_offset": 11,
+          "end_col_offset": 41,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 327,
+            "link": "https://cwe.mitre.org/data/definitions/327.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+          "line_number": 44,
+          "line_range": [
+            44
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b324_hashlib.html",
+          "test_id": "B324",
+          "test_name": "hashlib"
+        },
+        {
+          "code": "47 def unsafe_http_download(url):\n48     return requests.get(url).text  # missing TLS enforcement\n49 \n",
+          "col_offset": 11,
+          "end_col_offset": 28,
+          "filename": "./extreme.py",
+          "issue_confidence": "LOW",
+          "issue_cwe": {
+            "id": 400,
+            "link": "https://cwe.mitre.org/data/definitions/400.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Requests call without timeout",
+          "line_number": 48,
+          "line_range": [
+            48
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b113_request_without_timeout.html",
+          "test_id": "B113",
+          "test_name": "request_without_timeout"
+        },
+        {
+          "code": "51 def run_shell_command(cmd):\n52     subprocess.run(cmd, shell=True)\n53 \n",
+          "col_offset": 4,
+          "end_col_offset": 35,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "subprocess call with shell=True identified, security issue.",
+          "line_number": 52,
+          "line_range": [
+            52
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+          "test_id": "B602",
+          "test_name": "subprocess_popen_with_shell_equals_true"
+        }
+      ]
+    },
+    "semgrep-report.json": {
+      "errors": [
+        {
+          "code": 3,
+          "level": "warn",
+          "message": "Syntax error at line .github/workflows/security-scan.yml:31:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `\"R`TK Security scan [skip ci]\" || true\ngit push || true\n` was unexpected",
+          "path": ".github/workflows/security-scan.yml",
+          "spans": [
+            {
+              "end": {
+                "col": 18,
+                "line": 32,
+                "offset": 708
+              },
+              "file": ".github/workflows/security-scan.yml",
+              "start": {
+                "col": 15,
+                "line": 31,
+                "offset": 652
+              }
+            }
+          ],
+          "type": [
+            "PartialParsing",
+            [
+              {
+                "end": {
+                  "col": 18,
+                  "line": 32,
+                  "offset": 708
+                },
+                "path": ".github/workflows/security-scan.yml",
+                "start": {
+                  "col": 15,
+                  "line": 31,
+                  "offset": 652
+                }
+              }
+            ]
+          ]
+        }
+      ],
+      "interfile_languages_used": [],
+      "paths": {
+        "scanned": [
+          ".github/workflows/security-scan.yml",
+          "extreme.py",
+          "reports/bandit-report.json",
+          "reports/languages.txt",
+          "security-reports/full-20251215_023114.json",
+          "security-reports/scan-20251215_023114.json",
+          "security-reports/summary-20251215_023114.md"
+        ]
+      },
+      "results": [
+        {
+          "check_id": "python.lang.security.audit.eval-detected.eval-detected",
+          "end": {
+            "col": 22,
+            "line": 28,
+            "offset": 617
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "729d080bb062856a96fdbe7d261a5ff57f91fc8f3330edad454b2d59a995313377e7477ed13caacd2bb55fdd72a11b972c469100cf4bb06d43ab86e3f2568934_0",
+            "is_ignored": false,
+            "lines": "    return eval(code)  # extremely dangerous",
+            "message": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+            "metadata": {
+              "asvs": {
+                "control_id": "5.2.4 Dyanmic Code Execution Features",
+                "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+                "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+                "version": "4"
+              },
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+              ],
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A03:2021 - Injection"
+              ],
+              "references": [
+                "https://owasp.org/Top10/A03_2021-Injection"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9635,
+                  "rule_id": "gxU149",
+                  "rv_id": 946341,
+                  "url": "https://semgrep.dev/playground/r/xyTqnr7/python.lang.security.audit.eval-detected.eval-detected",
+                  "version_id": "xyTqnr7"
+                }
+              },
+              "shortlink": "https://sg.run/ZvrD",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.eval-detected.eval-detected",
+              "source-rule-url": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b307-eval",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Code Injection"
+              ]
+            },
+            "metavars": {},
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 28,
+            "offset": 607
+          }
+        },
+        {
+          "check_id": "python.lang.security.deserialization.pickle.avoid-pickle",
+          "end": {
+            "col": 30,
+            "line": 32,
+            "offset": 750
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "b6b0c3a5d587991e9033bd82d1a982533c41e95a2a70bbea921641f34e314b67c2053f8cc4c8c92e25433cfed61c9ac5270f207d97ad14f49eb82dcdf117deae_0",
+            "is_ignored": false,
+            "lines": "    return pickle.loads(blob)  # can execute arbitrary code",
+            "message": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-502: Deserialization of Untrusted Data"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A08:2017 - Insecure Deserialization",
+                "A08:2021 - Software and Data Integrity Failures"
+              ],
+              "references": [
+                "https://docs.python.org/3/library/pickle.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9675,
+                  "rule_id": "EwU2BJ",
+                  "rv_id": 946397,
+                  "url": "https://semgrep.dev/playground/r/w8TKJL9/python.lang.security.deserialization.pickle.avoid-pickle",
+                  "version_id": "w8TKJL9"
+                }
+              },
+              "shortlink": "https://sg.run/OPwB",
+              "source": "https://semgrep.dev/r/python.lang.security.deserialization.pickle.avoid-pickle",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Insecure Deserialization "
+              ]
+            },
+            "metavars": {
+              "$FUNC": {
+                "abstract_content": "loads",
+                "end": {
+                  "col": 24,
+                  "line": 32,
+                  "offset": 744
+                },
+                "start": {
+                  "col": 19,
+                  "line": 32,
+                  "offset": 739
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 32,
+            "offset": 732
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.formatted-sql-query.formatted-sql-query",
+          "end": {
+            "col": 30,
+            "line": 40,
+            "offset": 1040
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "2405960d795c79c0b5bd604fc85e5fd858a084f1f23bc21a40daf572172082dcbff2bcfd6c7642d05cfecc45e179f13eadc6aaf1c13cb0530200fd32d326d5a2_0",
+            "is_ignored": false,
+            "lines": "    return cur.execute(query).fetchall()",
+            "message": "Detected possible formatted SQL query. Use parameterized queries instead.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection"
+              ],
+              "references": [
+                "https://stackoverflow.com/questions/775296/mysql-parameterized-queries"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9637,
+                  "rule_id": "3qUP9k",
+                  "rv_id": 946343,
+                  "url": "https://semgrep.dev/playground/r/e1T98KK/python.lang.security.audit.formatted-sql-query.formatted-sql-query",
+                  "version_id": "e1T98KK"
+                }
+              },
+              "shortlink": "https://sg.run/EkWw",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.formatted-sql-query.formatted-sql-query",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$DB": {
+                "abstract_content": "cur",
+                "end": {
+                  "col": 15,
+                  "line": 40,
+                  "offset": 1025
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "conn.cursor()",
+                  "svalue_end": {
+                    "col": 24,
+                    "line": 37,
+                    "offset": 907
+                  },
+                  "svalue_start": {
+                    "col": 11,
+                    "line": 37,
+                    "offset": 894
+                  }
+                },
+                "start": {
+                  "col": 12,
+                  "line": 40,
+                  "offset": 1022
+                }
+              },
+              "$SQL": {
+                "abstract_content": "query",
+                "end": {
+                  "col": 29,
+                  "line": 40,
+                  "offset": 1039
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "f\"SELECT * FROM users WHERE username = '{username}'\"",
+                  "svalue_end": {
+                    "col": 65,
+                    "line": 39,
+                    "offset": 1010
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 39,
+                    "offset": 958
+                  }
+                },
+                "start": {
+                  "col": 24,
+                  "line": 40,
+                  "offset": 1034
+                }
+              },
+              "$X": {
+                "abstract_content": "username",
+                "end": {
+                  "col": 62,
+                  "line": 39,
+                  "offset": 1007
+                },
+                "start": {
+                  "col": 54,
+                  "line": 39,
+                  "offset": 999
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 40,
+            "offset": 1022
+          }
+        },
+        {
+          "check_id": "python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+          "end": {
+            "col": 30,
+            "line": 40,
+            "offset": 1040
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "8142737996df9eff5c8fcfc302f1efc25a9ca21ba789b8db4ab22027b508fa433bf41dfc11fa921b77b8b63e6616517f1da90f45ebe3145c323bf42643e70972_0",
+            "is_ignored": false,
+            "lines": "    return cur.execute(query).fetchall()",
+            "message": "Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL Injection. In order to execute raw query safely, prepared statement should be used. SQLAlchemy provides TextualSQL to easily used prepared statement with named parameters. For complex SQL composition, use SQL Expression Language or Schema Definition Language. In most cases, SQLAlchemy ORM will be a better option.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection"
+              ],
+              "references": [
+                "https://docs.sqlalchemy.org/en/14/core/tutorial.html#using-textual-sql",
+                "https://www.tutorialspoint.com/sqlalchemy/sqlalchemy_quick_guide.htm",
+                "https://docs.sqlalchemy.org/en/14/core/tutorial.html#using-more-specific-text-with-table-expression-literal-column-and-expression-column"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 10563,
+                  "rule_id": "oqUz5y",
+                  "rv_id": 946452,
+                  "url": "https://semgrep.dev/playground/r/8KTKj19/python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+                  "version_id": "8KTKj19"
+                }
+              },
+              "shortlink": "https://sg.run/2b1L",
+              "source": "https://semgrep.dev/r/python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "sqlalchemy"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$CONNECTION": {
+                "abstract_content": "cur",
+                "end": {
+                  "col": 15,
+                  "line": 40,
+                  "offset": 1025
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "conn.cursor()",
+                  "svalue_end": {
+                    "col": 24,
+                    "line": 37,
+                    "offset": 907
+                  },
+                  "svalue_start": {
+                    "col": 11,
+                    "line": 37,
+                    "offset": 894
+                  }
+                },
+                "start": {
+                  "col": 12,
+                  "line": 40,
+                  "offset": 1022
+                }
+              },
+              "$QUERY": {
+                "abstract_content": "query",
+                "end": {
+                  "col": 29,
+                  "line": 40,
+                  "offset": 1039
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "f\"SELECT * FROM users WHERE username = '{username}'\"",
+                  "svalue_end": {
+                    "col": 65,
+                    "line": 39,
+                    "offset": 1010
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 39,
+                    "offset": 958
+                  }
+                },
+                "start": {
+                  "col": 24,
+                  "line": 40,
+                  "offset": 1034
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 40,
+            "offset": 1022
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+          "end": {
+            "col": 54,
+            "line": 44,
+            "offset": 1173
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 54,
+                      "line": 44,
+                      "offset": 1173
+                    },
+                    "path": "extreme.py",
+                    "start": {
+                      "col": 12,
+                      "line": 44,
+                      "offset": 1131
+                    }
+                  },
+                  "hashlib.md5(password.encode()).hexdigest()"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 23,
+                      "line": 44,
+                      "offset": 1142
+                    },
+                    "path": "extreme.py",
+                    "start": {
+                      "col": 12,
+                      "line": 44,
+                      "offset": 1131
+                    }
+                  },
+                  "hashlib.md5"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "c59267a37dd3d3915815aab1ca5f53fa2743b3e5bbdb7d662d9362e70e30cc09380ff58135ea41660c58fe12177b195167baa8baaefdb6c7009e5731e1c40427_0",
+            "is_ignored": false,
+            "lines": "    return hashlib.md5(password.encode()).hexdigest()  # MD5 is broken",
+            "message": "It looks like MD5 is used as a password hash. MD5 is not considered a secure password hash because it can be cracked by an attacker in a short amount of time. Use a suitable password hashing function such as scrypt. You can use `hashlib.scrypt`.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+              ],
+              "impact": "LOW",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A03:2017 - Sensitive Data Exposure",
+                "A02:2021 - Cryptographic Failures"
+              ],
+              "references": [
+                "https://tools.ietf.org/html/rfc6151",
+                "https://crypto.stackexchange.com/questions/44151/how-does-the-flame-malware-take-advantage-of-md5-collision",
+                "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html",
+                "https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords",
+                "https://github.com/returntocorp/semgrep-rules/issues/1609",
+                "https://docs.python.org/3/library/hashlib.html#hashlib.scrypt"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 14703,
+                  "rule_id": "6JU1w1",
+                  "rv_id": 946368,
+                  "url": "https://semgrep.dev/playground/r/l4Tx9Rp/python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+                  "version_id": "l4Tx9Rp"
+                }
+              },
+              "shortlink": "https://sg.run/5DwD",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "pycryptodome",
+                "hashlib",
+                "md5"
+              ],
+              "vulnerability_class": [
+                "Cryptographic Issues"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "hashlib.md5(password.encode()).hexdigest",
+                "end": {
+                  "col": 41,
+                  "line": 1,
+                  "offset": 40
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$FUNCTION": {
+                "abstract_content": "hashlib.md5(password.encode()).hexdigest",
+                "end": {
+                  "col": 52,
+                  "line": 44,
+                  "offset": 1171
+                },
+                "start": {
+                  "col": 12,
+                  "line": 44,
+                  "offset": 1131
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 44,
+            "offset": 1131
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "end": {
+            "col": 35,
+            "line": 52,
+            "offset": 1453
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "9c523dd4c4a73d1f9b462c80c5b797bc70a11618b294aa061f1c938e2f3f8f447ce0a81da2f92a36fae3e4424c95013167b3fcba2589b31ec9dcbb271dbccae6_0",
+            "fix": "False",
+            "is_ignored": false,
+            "lines": "    subprocess.run(cmd, shell=True)",
+            "message": "Found 'subprocess' function 'run' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "LOW",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection"
+              ],
+              "references": [
+                "https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess",
+                "https://docs.python.org/3/library/subprocess.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9646,
+                  "rule_id": "DbUpz2",
+                  "rv_id": 946382,
+                  "url": "https://semgrep.dev/playground/r/YDTvReW/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+                  "version_id": "YDTvReW"
+                }
+              },
+              "shortlink": "https://sg.run/J92w",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+              "source-rule-url": "https://bandit.readthedocs.io/en/latest/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+              "subcategory": [
+                "secure default"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Command Injection"
+              ]
+            },
+            "metavars": {
+              "$FUNC": {
+                "abstract_content": "run",
+                "end": {
+                  "col": 19,
+                  "line": 52,
+                  "offset": 1437
+                },
+                "start": {
+                  "col": 16,
+                  "line": 52,
+                  "offset": 1434
+                }
+              },
+              "$TRUE": {
+                "abstract_content": "True",
+                "end": {
+                  "col": 35,
+                  "line": 52,
+                  "offset": 1453
+                },
+                "start": {
+                  "col": 31,
+                  "line": 52,
+                  "offset": 1449
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 31,
+            "line": 52,
+            "offset": 1449
+          }
+        },
+        {
+          "check_id": "python.lang.security.deserialization.pickle.avoid-pickle",
+          "end": {
+            "col": 58,
+            "line": 67,
+            "offset": 2002
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "50e4f4e73b03ce44703215a59d66e2bedf85830a441db529315d6e312bf25ef1365b687921501609d523af5f232205f4403686f77a2e0c6579d0e049406d57c0_0",
+            "is_ignored": false,
+            "lines": "    print(load_untrusted_data(pickle.dumps({\"test\": 123})))",
+            "message": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-502: Deserialization of Untrusted Data"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A08:2017 - Insecure Deserialization",
+                "A08:2021 - Software and Data Integrity Failures"
+              ],
+              "references": [
+                "https://docs.python.org/3/library/pickle.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9675,
+                  "rule_id": "EwU2BJ",
+                  "rv_id": 946397,
+                  "url": "https://semgrep.dev/playground/r/w8TKJL9/python.lang.security.deserialization.pickle.avoid-pickle",
+                  "version_id": "w8TKJL9"
+                }
+              },
+              "shortlink": "https://sg.run/OPwB",
+              "source": "https://semgrep.dev/r/python.lang.security.deserialization.pickle.avoid-pickle",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Insecure Deserialization "
+              ]
+            },
+            "metavars": {
+              "$FUNC": {
+                "abstract_content": "dumps",
+                "end": {
+                  "col": 43,
+                  "line": 67,
+                  "offset": 1987
+                },
+                "start": {
+                  "col": 38,
+                  "line": 67,
+                  "offset": 1982
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 31,
+            "line": 67,
+            "offset": 1975
+          }
+        }
+      ],
+      "skipped_rules": [],
+      "version": "1.80.0"
+    },
+    "pip-audit-report.json": {
+      "dependencies": [
+        {
+          "name": "accelerate",
+          "version": "1.12.0",
+          "vulns": []
+        },
+        {
+          "name": "annotated-types",
+          "version": "0.7.0",
+          "vulns": []
+        },
+        {
+          "name": "anyio",
+          "version": "4.12.0",
+          "vulns": []
+        },
+        {
+          "name": "attrs",
+          "version": "25.4.0",
+          "vulns": []
+        },
+        {
+          "name": "authlib",
+          "version": "1.6.6",
+          "vulns": []
+        },
+        {
+          "name": "bandit",
+          "version": "1.7.9",
+          "vulns": []
+        },
+        {
+          "name": "boltons",
+          "version": "21.0.0",
+          "vulns": []
+        },
+        {
+          "name": "boolean-py",
+          "version": "5.0",
+          "vulns": []
+        },
+        {
+          "name": "bracex",
+          "version": "2.6",
+          "vulns": []
+        },
+        {
+          "name": "cachecontrol",
+          "version": "0.14.4",
+          "vulns": []
+        },
+        {
+          "name": "certifi",
+          "version": "2025.11.12",
+          "vulns": []
+        },
+        {
+          "name": "cffi",
+          "version": "2.0.0",
+          "vulns": []
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.4.4",
+          "vulns": []
+        },
+        {
+          "name": "click",
+          "version": "8.3.1",
+          "vulns": []
+        },
+        {
+          "name": "click-option-group",
+          "version": "0.5.9",
+          "vulns": []
+        },
+        {
+          "name": "colorama",
+          "version": "0.4.6",
+          "vulns": []
+        },
+        {
+          "name": "cryptography",
+          "version": "46.0.3",
+          "vulns": []
+        },
+        {
+          "name": "cyclonedx-python-lib",
+          "version": "7.6.2",
+          "vulns": []
+        },
+        {
+          "name": "defusedxml",
+          "version": "0.7.1",
+          "vulns": []
+        },
+        {
+          "name": "deprecated",
+          "version": "1.3.1",
+          "vulns": []
+        },
+        {
+          "name": "dparse",
+          "version": "0.6.4",
+          "vulns": []
+        },
+        {
+          "name": "exceptiongroup",
+          "version": "1.2.2",
+          "vulns": []
+        },
+        {
+          "name": "face",
+          "version": "24.0.0",
+          "vulns": []
+        },
+        {
+          "name": "filelock",
+          "version": "3.20.0",
+          "vulns": []
+        },
+        {
+          "name": "fsspec",
+          "version": "2025.12.0",
+          "vulns": []
+        },
+        {
+          "name": "glom",
+          "version": "22.1.0",
+          "vulns": []
+        },
+        {
+          "name": "googleapis-common-protos",
+          "version": "1.72.0",
+          "vulns": []
+        },
+        {
+          "name": "h11",
+          "version": "0.16.0",
+          "vulns": []
+        },
+        {
+          "name": "hf-xet",
+          "version": "1.2.0",
+          "vulns": []
+        },
+        {
+          "name": "html5lib",
+          "version": "1.1",
+          "vulns": []
+        },
+        {
+          "name": "httpcore",
+          "version": "1.0.9",
+          "vulns": []
+        },
+        {
+          "name": "httpx",
+          "version": "0.28.1",
+          "vulns": []
+        },
+        {
+          "name": "huggingface-hub",
+          "version": "0.36.0",
+          "vulns": []
+        },
+        {
+          "name": "idna",
+          "version": "3.11",
+          "vulns": []
+        },
+        {
+          "name": "importlib-metadata",
+          "version": "7.1.0",
+          "vulns": []
+        },
+        {
+          "name": "jinja2",
+          "version": "3.1.6",
+          "vulns": []
+        },
+        {
+          "name": "joblib",
+          "version": "1.5.2",
+          "vulns": []
+        },
+        {
+          "name": "jsonschema",
+          "version": "4.25.1",
+          "vulns": []
+        },
+        {
+          "name": "jsonschema-specifications",
+          "version": "2025.9.1",
+          "vulns": []
+        },
+        {
+          "name": "license-expression",
+          "version": "30.4.4",
+          "vulns": []
+        },
+        {
+          "name": "markdown-it-py",
+          "version": "4.0.0",
+          "vulns": []
+        },
+        {
+          "name": "markupsafe",
+          "version": "3.0.3",
+          "vulns": []
+        },
+        {
+          "name": "marshmallow",
+          "version": "4.1.1",
+          "vulns": []
+        },
+        {
+          "name": "mdurl",
+          "version": "0.1.2",
+          "vulns": []
+        },
+        {
+          "name": "mpmath",
+          "version": "1.3.0",
+          "vulns": []
+        },
+        {
+          "name": "msgpack",
+          "version": "1.1.2",
+          "vulns": []
+        },
+        {
+          "name": "networkx",
+          "version": "3.6.1",
+          "vulns": []
+        },
+        {
+          "name": "nltk",
+          "version": "3.9.2",
+          "vulns": []
+        },
+        {
+          "name": "numpy",
+          "version": "2.3.5",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cublas-cu12",
+          "version": "12.8.4.1",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cuda-cupti-cu12",
+          "version": "12.8.90",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cuda-nvrtc-cu12",
+          "version": "12.8.93",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cuda-runtime-cu12",
+          "version": "12.8.90",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cudnn-cu12",
+          "version": "9.10.2.21",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cufft-cu12",
+          "version": "11.3.3.83",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cufile-cu12",
+          "version": "1.13.1.3",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-curand-cu12",
+          "version": "10.3.9.90",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cusolver-cu12",
+          "version": "11.7.3.90",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cusparse-cu12",
+          "version": "12.5.8.93",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-cusparselt-cu12",
+          "version": "0.7.1",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-nccl-cu12",
+          "version": "2.27.5",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-nvjitlink-cu12",
+          "version": "12.8.93",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-nvshmem-cu12",
+          "version": "3.3.20",
+          "vulns": []
+        },
+        {
+          "name": "nvidia-nvtx-cu12",
+          "version": "12.8.90",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-api",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-exporter-otlp-proto-common",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-exporter-otlp-proto-http",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-instrumentation",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-instrumentation-requests",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-proto",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-sdk",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-semantic-conventions",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-util-http",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "packageurl-python",
+          "version": "0.17.6",
+          "vulns": []
+        },
+        {
+          "name": "packaging",
+          "version": "25.0",
+          "vulns": []
+        },
+        {
+          "name": "peewee",
+          "version": "3.18.3",
+          "vulns": []
+        },
+        {
+          "name": "pip",
+          "version": "25.0.1",
+          "vulns": [
+            {
+              "id": "GHSA-4xh5-x5gv-qwph",
+              "fix_versions": [
+                "25.3"
+              ],
+              "aliases": [
+                "CVE-2025-8869"
+              ],
+              "description": "### Summary  In the fallback extraction path for source distributions, `pip` used Python\u2019s `tarfile` module without verifying that symbolic/hard link targets resolve inside the intended extraction directory. A malicious sdist can include links that escape the target directory and overwrite arbitrary files on the invoking host during `pip install`.  ### Impact  Successful exploitation enables arbitrary file overwrite outside the build/extraction directory on the machine running `pip`. This can be leveraged to tamper with configuration or startup files and may lead to further code execution depending on the environment, but the direct, guaranteed impact is integrity compromise on the vulnerable system.  ### Conditions  The issue is triggered when installing an attacker-controlled sdist (e.g., from an index or URL) and the fallback extraction code path is used. No special privileges are required beyond running `pip install`; active user action is necessary.  ### Remediation  The [fix](https://github.com/pypa/pip/pull/13550) is available starting in pip `25.3`. Using a Python interpreter that implements the safe-extraction behavior described by **PEP 706** provides additional defense in depth for other `tarfile` issues but is not a substitute for upgrading pip for this specific flaw."
+            }
+          ]
+        },
+        {
+          "name": "pip-api",
+          "version": "0.0.34",
+          "vulns": []
+        },
+        {
+          "name": "pip-audit",
+          "version": "2.7.3",
+          "vulns": []
+        },
+        {
+          "name": "pip-requirements-parser",
+          "version": "32.0.1",
+          "vulns": []
+        },
+        {
+          "name": "protobuf",
+          "version": "4.25.8",
+          "vulns": []
+        },
+        {
+          "name": "psutil",
+          "version": "7.1.3",
+          "vulns": []
+        },
+        {
+          "name": "py-serializable",
+          "version": "1.1.2",
+          "vulns": []
+        },
+        {
+          "name": "pycparser",
+          "version": "2.23",
+          "vulns": []
+        },
+        {
+          "name": "pydantic",
+          "version": "2.12.5",
+          "vulns": []
+        },
+        {
+          "name": "pydantic-core",
+          "version": "2.41.5",
+          "vulns": []
+        },
+        {
+          "name": "pygments",
+          "version": "2.19.2",
+          "vulns": []
+        },
+        {
+          "name": "pyparsing",
+          "version": "3.2.5",
+          "vulns": []
+        },
+        {
+          "name": "pyyaml",
+          "version": "6.0.3",
+          "vulns": []
+        },
+        {
+          "name": "referencing",
+          "version": "0.37.0",
+          "vulns": []
+        },
+        {
+          "name": "regex",
+          "version": "2025.11.3",
+          "vulns": []
+        },
+        {
+          "name": "requests",
+          "version": "2.32.5",
+          "vulns": []
+        },
+        {
+          "name": "rich",
+          "version": "14.2.0",
+          "vulns": []
+        },
+        {
+          "name": "rpds-py",
+          "version": "0.30.0",
+          "vulns": []
+        },
+        {
+          "name": "ruamel-yaml",
+          "version": "0.17.40",
+          "vulns": []
+        },
+        {
+          "name": "ruamel-yaml-clib",
+          "version": "0.2.15",
+          "vulns": []
+        },
+        {
+          "name": "safetensors",
+          "version": "0.7.0",
+          "vulns": []
+        },
+        {
+          "name": "safety",
+          "version": "3.7.0",
+          "vulns": []
+        },
+        {
+          "name": "safety-schemas",
+          "version": "0.0.16",
+          "vulns": []
+        },
+        {
+          "name": "semgrep",
+          "version": "1.80.0",
+          "vulns": []
+        },
+        {
+          "name": "sentencepiece",
+          "version": "0.2.1",
+          "vulns": []
+        },
+        {
+          "name": "setuptools",
+          "version": "80.9.0",
+          "vulns": []
+        },
+        {
+          "name": "shellingham",
+          "version": "1.5.4",
+          "vulns": []
+        },
+        {
+          "name": "six",
+          "version": "1.17.0",
+          "vulns": []
+        },
+        {
+          "name": "sortedcontainers",
+          "version": "2.4.0",
+          "vulns": []
+        },
+        {
+          "name": "stevedore",
+          "version": "5.6.0",
+          "vulns": []
+        },
+        {
+          "name": "sympy",
+          "version": "1.14.0",
+          "vulns": []
+        },
+        {
+          "name": "tenacity",
+          "version": "9.1.2",
+          "vulns": []
+        },
+        {
+          "name": "tokenizers",
+          "version": "0.15.2",
+          "vulns": []
+        },
+        {
+          "name": "toml",
+          "version": "0.10.2",
+          "vulns": []
+        },
+        {
+          "name": "tomli",
+          "version": "2.0.2",
+          "vulns": []
+        },
+        {
+          "name": "tomlkit",
+          "version": "0.13.3",
+          "vulns": []
+        },
+        {
+          "name": "torch",
+          "version": "2.9.1",
+          "vulns": []
+        },
+        {
+          "name": "tqdm",
+          "version": "4.67.1",
+          "vulns": []
+        },
+        {
+          "name": "transformers",
+          "version": "4.37.2",
+          "vulns": [
+            {
+              "id": "PYSEC-2024-227",
+              "fix_versions": [
+                "4.48.0"
+              ],
+              "aliases": [
+                "CVE-2024-11392"
+              ],
+              "description": "Hugging Face Transformers MobileViTV2 Deserialization of Untrusted Data Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of Hugging Face Transformers. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.  The specific flaw exists within the handling of configuration files. The issue results from the lack of proper validation of user-supplied data, which can result in deserialization of untrusted data. An attacker can leverage this vulnerability to execute code in the context of the current user. Was ZDI-CAN-24322."
+            },
+            {
+              "id": "PYSEC-2024-228",
+              "fix_versions": [
+                "4.48.0"
+              ],
+              "aliases": [
+                "CVE-2024-11393"
+              ],
+              "description": "Hugging Face Transformers MaskFormer Model Deserialization of Untrusted Data Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of Hugging Face Transformers. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.  The specific flaw exists within the parsing of model files. The issue results from the lack of proper validation of user-supplied data, which can result in deserialization of untrusted data. An attacker can leverage this vulnerability to execute code in the context of the current user. Was ZDI-CAN-25191."
+            },
+            {
+              "id": "PYSEC-2024-229",
+              "fix_versions": [
+                "4.48.0"
+              ],
+              "aliases": [
+                "CVE-2024-11394"
+              ],
+              "description": "Hugging Face Transformers Trax Model Deserialization of Untrusted Data Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of Hugging Face Transformers. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.  The specific flaw exists within the handling of model files. The issue results from the lack of proper validation of user-supplied data, which can result in deserialization of untrusted data. An attacker can leverage this vulnerability to execute code in the context of the current user. Was ZDI-CAN-25012."
+            },
+            {
+              "id": "PYSEC-2025-40",
+              "fix_versions": [
+                "4.49.0"
+              ],
+              "aliases": [
+                "CVE-2025-2099"
+              ],
+              "description": "A vulnerability in the `preprocess_string()` function of the `transformers.testing_utils` module in huggingface/transformers version v4.48.3 allows for a Regular Expression Denial of Service (ReDoS) attack. The regular expression used to process code blocks in docstrings contains nested quantifiers, leading to exponential backtracking when processing input with a large number of newline characters. An attacker can exploit this by providing a specially crafted payload, causing high CPU usage and potential application downtime, effectively resulting in a Denial of Service (DoS) scenario."
+            },
+            {
+              "id": "GHSA-37q5-v5qm-c9v8",
+              "fix_versions": [
+                "4.38.0"
+              ],
+              "aliases": [
+                "CVE-2024-3568"
+              ],
+              "description": "The huggingface/transformers library is vulnerable to arbitrary code execution through deserialization of untrusted data within the `load_repo_checkpoint()` function of the `TFPreTrainedModel()` class. Attackers can execute arbitrary code and commands by crafting a malicious serialized payload, exploiting the use of `pickle.load()` on data from potentially untrusted sources. This vulnerability allows for remote code execution (RCE) by deceiving victims into loading a seemingly harmless checkpoint during a normal training process, thereby enabling attackers to execute arbitrary code on the targeted machine."
+            },
+            {
+              "id": "GHSA-6rvg-6v2m-4j46",
+              "fix_versions": [
+                "4.48.0"
+              ],
+              "aliases": [
+                "CVE-2024-12720"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was identified in the huggingface/transformers library, specifically in the file tokenization_nougat_fast.py. The vulnerability occurs in the post_process_single() function, where a regular expression processes specially crafted input. The issue stems from the regex exhibiting exponential time complexity under certain conditions, leading to excessive backtracking. This can result in significantly high CPU usage and potential application downtime, effectively creating a Denial of Service (DoS) scenario. The affected version is v4.46.3."
+            },
+            {
+              "id": "GHSA-fpwr-67px-3qhx",
+              "fix_versions": [
+                "4.50.0"
+              ],
+              "aliases": [
+                "CVE-2025-1194"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was identified in the huggingface/transformers library, specifically in the file `tokenization_gpt_neox_japanese.py` of the GPT-NeoX-Japanese model. The vulnerability occurs in the SubWordJapaneseTokenizer class, where regular expressions process specially crafted inputs. The issue stems from a regex exhibiting exponential complexity under certain conditions, leading to excessive backtracking. This can result in high CPU usage and potential application downtime, effectively creating a Denial of Service (DoS) scenario. The affected version is v4.48.1 (latest)."
+            },
+            {
+              "id": "GHSA-q2wp-rjmx-x6x9",
+              "fix_versions": [
+                "4.51.0"
+              ],
+              "aliases": [
+                "CVE-2025-3263"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically in the `get_configuration_file()` function within the `transformers.configuration_utils` module. The affected version is 4.49.0, and the issue is resolved in version 4.51.0. The vulnerability arises from the use of a regular expression pattern `config\\.(.*)\\.json` that can be exploited to cause excessive CPU consumption through crafted input strings, leading to catastrophic backtracking. This can result in model serving disruption, resource exhaustion, and increased latency in applications using the library."
+            },
+            {
+              "id": "GHSA-jjph-296x-mrcr",
+              "fix_versions": [
+                "4.51.0"
+              ],
+              "aliases": [
+                "CVE-2025-3264"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically in the `get_imports()` function within `dynamic_module_utils.py`. This vulnerability affects versions 4.49.0 and is fixed in version 4.51.0. The issue arises from a regular expression pattern `\\s*try\\s*:.*?except.*?:` used to filter out try/except blocks from Python code, which can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. This vulnerability can lead to remote code loading disruption, resource exhaustion in model serving, supply chain attack vectors, and development pipeline disruption."
+            },
+            {
+              "id": "GHSA-phhr-52qp-3mj4",
+              "fix_versions": [
+                "4.52.1"
+              ],
+              "aliases": [
+                "CVE-2025-3777"
+              ],
+              "description": "Hugging Face Transformers versions up to 4.49.0 are affected by an improper input validation vulnerability in the `image_utils.py` file. The vulnerability arises from insecure URL validation using the `startswith()` method, which can be bypassed through URL username injection. This allows attackers to craft URLs that appear to be from YouTube but resolve to malicious domains, potentially leading to phishing attacks, malware distribution, or data exfiltration. The issue is fixed in version 4.52.1."
+            },
+            {
+              "id": "GHSA-37mw-44qp-f5jm",
+              "fix_versions": [
+                "4.52.1"
+              ],
+              "aliases": [
+                "CVE-2025-3933"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically within the DonutProcessor class's `token2json()` method. This vulnerability affects versions 4.51.3 and earlier, and is fixed in version 4.52.1. The issue arises from the regex pattern `<s_(.*?)>` which can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. This vulnerability can lead to service disruption, resource exhaustion, and potential API service vulnerabilities, impacting document processing tasks using the Donut model."
+            },
+            {
+              "id": "GHSA-9356-575x-2w9m",
+              "fix_versions": [
+                "4.53.0"
+              ],
+              "aliases": [
+                "CVE-2025-5197"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability exists in the Hugging Face Transformers library, specifically in the `convert_tf_weight_name_to_pt_weight_name()` function. This function, responsible for converting TensorFlow weight names to PyTorch format, uses a regex pattern `/[^/]*___([^/]*)/` that can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. The vulnerability affects versions up to 4.51.3 and is fixed in version 4.53.0. This issue can lead to service disruption, resource exhaustion, and potential API service vulnerabilities, impacting model conversion processes between TensorFlow and PyTorch formats."
+            },
+            {
+              "id": "GHSA-59p9-h35m-wg4g",
+              "fix_versions": [
+                "4.53.0"
+              ],
+              "aliases": [
+                "CVE-2025-6638"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically affecting the MarianTokenizer's `remove_language_code()` method. This vulnerability is present in version 4.52.4 and has been fixed in version 4.53.0. The issue arises from inefficient regex processing, which can be exploited by crafted input strings containing malformed language code patterns, leading to excessive CPU consumption and potential denial of service."
+            },
+            {
+              "id": "GHSA-rcv9-qm8p-9p6j",
+              "fix_versions": [
+                "4.53.0"
+              ],
+              "aliases": [
+                "CVE-2025-6051"
+              ],
+              "description": "A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically within the `normalize_numbers()` method of the `EnglishNormalizer` class. This vulnerability affects versions up to 4.52.4 and is fixed in version 4.53.0. The issue arises from the method's handling of numeric strings, which can be exploited using crafted input strings containing long sequences of digits, leading to excessive CPU consumption. This vulnerability impacts text-to-speech and number normalization tasks, potentially causing service disruption, resource exhaustion, and API vulnerabilities."
+            },
+            {
+              "id": "GHSA-4w7r-h757-3r74",
+              "fix_versions": [
+                "4.53.0"
+              ],
+              "aliases": [
+                "CVE-2025-6921"
+              ],
+              "description": "The huggingface/transformers library, versions prior to 4.53.0, is vulnerable to Regular Expression Denial of Service (ReDoS) in the AdamWeightDecay optimizer. The vulnerability arises from the _do_use_weight_decay method, which processes user-controlled regular expressions in the include_in_weight_decay and exclude_from_weight_decay lists. Malicious regular expressions can cause catastrophic backtracking during the re.search call, leading to 100% CPU utilization and a denial of service. This issue can be exploited by attackers who can control the patterns in these lists, potentially causing the machine learning task to hang and rendering services unresponsive."
+            }
+          ]
+        },
+        {
+          "name": "triton",
+          "version": "3.5.1",
+          "vulns": []
+        },
+        {
+          "name": "typer",
+          "version": "0.20.0",
+          "vulns": []
+        },
+        {
+          "name": "typing-extensions",
+          "version": "4.15.0",
+          "vulns": []
+        },
+        {
+          "name": "typing-inspection",
+          "version": "0.4.2",
+          "vulns": []
+        },
+        {
+          "name": "urllib3",
+          "version": "2.6.2",
+          "vulns": []
+        },
+        {
+          "name": "wcmatch",
+          "version": "8.5.2",
+          "vulns": []
+        },
+        {
+          "name": "webencodings",
+          "version": "0.5.1",
+          "vulns": []
+        },
+        {
+          "name": "wrapt",
+          "version": "1.17.3",
+          "vulns": []
+        },
+        {
+          "name": "zipp",
+          "version": "3.23.0",
+          "vulns": []
+        }
+      ],
+      "fixes": []
+    },
+    "languages.txt": {
+      "raw_text": "Detected languages: Python\n\nScanner configuration:\n  \u2713 bandit\n  \u2713 pip_audit\n  \u2717 npm_audit\n  \u2717 eslint\n  \u2717 spotbugs\n  \u2717 dependency_check_java\n  \u2717 gosec\n  \u2717 nancy\n  \u2713 semgrep\n  \u2713 trivy\n\nSemgrep configs: p/owasp-top-ten, p/python, p/security-audit\n"
+    }
+  },
+  "metrics": {
+    "bandit-report.json": {
+      "size_bytes": 7932
+    },
+    "semgrep-report.json": {
+      "size_bytes": 17373
+    },
+    "pip-audit-report.json": {
+      "size_bytes": 19856
+    }
+  }
+}
