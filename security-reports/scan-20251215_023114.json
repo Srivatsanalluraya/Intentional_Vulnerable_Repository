@@ -1,0 +1,171 @@
+{
+  "total_issues": 16,
+  "severity_counts": {
+    "MEDIUM": 16
+  },
+  "issues_by_source": {
+    "pip-audit": 16
+  },
+  "detailed_issues": [
+    {
+      "number": 1,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-4xh5-x5gv-qwph - ### Summary  In the fallback extraction path for source distributions, `pip` used Python\u2019s `tarfile` module without verifying that symbolic/hard link targets resolve inside the intended extraction directory. A malicious sdist can include links that escape the target directory and overwrite arbitrary files on the invoking host during `pip install`.  ### Impact  Successful exploitation enables arbitrary file overwrite outside the build/extraction directory on the machine running `pip`. This can be leveraged to tamper with configuration or startup files and may lead to further code execution depending on the environment, but the direct, guaranteed impact is integrity compromise on the vulnerable system.  ### Conditions  The issue is triggered when installing an attacker-controlled sdist (e.g., from an index or URL) and the fallback extraction code path is used. No special privileges are required beyond running `pip install`; active user action is necessary.  ### Remediation  The [fix](https://github.com/pypa/pip/pull/13550) is available starting in pip `25.3`. Using a Python interpreter that implements the safe-extraction behavior described by **PEP 706** provides additional defense in depth for other `tarfile` issues but is not a substitute for upgrading pip for this specific flaw.",
+      "impact": "[MEDIUM] Dynamic code execution - Unsafe evaluation of untrusted input",
+      "fix": "Update pip to ['25.3']"
+    },
+    {
+      "number": 2,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "PYSEC-2024-227 - Hugging Face Transformers MobileViTV2 Deserialization of Untrusted Data Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of Hugging Face Transformers. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.  The specific flaw exists within the handling of configuration files. The issue results from the lack of proper validation of user-supplied data, which can result in deserialization of untrusted data. An attacker can leverage this vulnerability to execute code in the context of the current user. Was ZDI-CAN-24322.",
+      "impact": "[MEDIUM] Unsafe deserialization - Could lead to arbitrary code execution",
+      "fix": "Update transformers to ['4.48.0']"
+    },
+    {
+      "number": 3,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "PYSEC-2024-228 - Hugging Face Transformers MaskFormer Model Deserialization of Untrusted Data Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of Hugging Face Transformers. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.  The specific flaw exists within the parsing of model files. The issue results from the lack of proper validation of user-supplied data, which can result in deserialization of untrusted data. An attacker can leverage this vulnerability to execute code in the context of the current user. Was ZDI-CAN-25191.",
+      "impact": "[MEDIUM] Unsafe deserialization - Could lead to arbitrary code execution",
+      "fix": "Update transformers to ['4.48.0']"
+    },
+    {
+      "number": 4,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "PYSEC-2024-229 - Hugging Face Transformers Trax Model Deserialization of Untrusted Data Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of Hugging Face Transformers. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.  The specific flaw exists within the handling of model files. The issue results from the lack of proper validation of user-supplied data, which can result in deserialization of untrusted data. An attacker can leverage this vulnerability to execute code in the context of the current user. Was ZDI-CAN-25012.",
+      "impact": "[MEDIUM] Unsafe deserialization - Could lead to arbitrary code execution",
+      "fix": "Update transformers to ['4.48.0']"
+    },
+    {
+      "number": 5,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "PYSEC-2025-40 - A vulnerability in the `preprocess_string()` function of the `transformers.testing_utils` module in huggingface/transformers version v4.48.3 allows for a Regular Expression Denial of Service (ReDoS) attack. The regular expression used to process code blocks in docstrings contains nested quantifiers, leading to exponential backtracking when processing input with a large number of newline characters. An attacker can exploit this by providing a specially crafted payload, causing high CPU usage and potential application downtime, effectively resulting in a Denial of Service (DoS) scenario.",
+      "impact": "[MEDIUM] Known vulnerability - Update dependency to patched version",
+      "fix": "Update transformers to ['4.49.0']"
+    },
+    {
+      "number": 6,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-37q5-v5qm-c9v8 - The huggingface/transformers library is vulnerable to arbitrary code execution through deserialization of untrusted data within the `load_repo_checkpoint()` function of the `TFPreTrainedModel()` class. Attackers can execute arbitrary code and commands by crafting a malicious serialized payload, exploiting the use of `pickle.load()` on data from potentially untrusted sources. This vulnerability allows for remote code execution (RCE) by deceiving victims into loading a seemingly harmless checkpoint during a normal training process, thereby enabling attackers to execute arbitrary code on the targeted machine.",
+      "impact": "[MEDIUM] Code/SQL injection risk - Attacker could execute arbitrary code or queries",
+      "fix": "Update transformers to ['4.38.0']"
+    },
+    {
+      "number": 7,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-6rvg-6v2m-4j46 - A Regular Expression Denial of Service (ReDoS) vulnerability was identified in the huggingface/transformers library, specifically in the file tokenization_nougat_fast.py. The vulnerability occurs in the post_process_single() function, where a regular expression processes specially crafted input. The issue stems from the regex exhibiting exponential time complexity under certain conditions, leading to excessive backtracking. This can result in significantly high CPU usage and potential application downtime, effectively creating a Denial of Service (DoS) scenario. The affected version is v4.46.3.",
+      "impact": "[MEDIUM] Credential exposure - Hardcoded sensitive data could be compromised",
+      "fix": "Update transformers to ['4.48.0']"
+    },
+    {
+      "number": 8,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-fpwr-67px-3qhx - A Regular Expression Denial of Service (ReDoS) vulnerability was identified in the huggingface/transformers library, specifically in the file `tokenization_gpt_neox_japanese.py` of the GPT-NeoX-Japanese model. The vulnerability occurs in the SubWordJapaneseTokenizer class, where regular expressions process specially crafted inputs. The issue stems from a regex exhibiting exponential complexity under certain conditions, leading to excessive backtracking. This can result in high CPU usage and potential application downtime, effectively creating a Denial of Service (DoS) scenario. The affected version is v4.48.1 (latest).",
+      "impact": "[MEDIUM] Credential exposure - Hardcoded sensitive data could be compromised",
+      "fix": "Update transformers to ['4.50.0']"
+    },
+    {
+      "number": 9,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-q2wp-rjmx-x6x9 - A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically in the `get_configuration_file()` function within the `transformers.configuration_utils` module. The affected version is 4.49.0, and the issue is resolved in version 4.51.0. The vulnerability arises from the use of a regular expression pattern `config\\.(.*)\\.json` that can be exploited to cause excessive CPU consumption through crafted input strings, leading to catastrophic backtracking. This can result in model serving disruption, resource exhaustion, and increased latency in applications using the library.",
+      "impact": "[MEDIUM] Known vulnerability - Update dependency to patched version",
+      "fix": "Update transformers to ['4.51.0']"
+    },
+    {
+      "number": 10,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-jjph-296x-mrcr - A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically in the `get_imports()` function within `dynamic_module_utils.py`. This vulnerability affects versions 4.49.0 and is fixed in version 4.51.0. The issue arises from a regular expression pattern `\\s*try\\s*:.*?except.*?:` used to filter out try/except blocks from Python code, which can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. This vulnerability can lead to remote code loading disruption, resource exhaustion in model serving, supply chain attack vectors, and development pipeline disruption.",
+      "impact": "[MEDIUM] Known vulnerability - Update dependency to patched version",
+      "fix": "Update transformers to ['4.51.0']"
+    },
+    {
+      "number": 11,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-phhr-52qp-3mj4 - Hugging Face Transformers versions up to 4.49.0 are affected by an improper input validation vulnerability in the `image_utils.py` file. The vulnerability arises from insecure URL validation using the `startswith()` method, which can be bypassed through URL username injection. This allows attackers to craft URLs that appear to be from YouTube but resolve to malicious domains, potentially leading to phishing attacks, malware distribution, or data exfiltration. The issue is fixed in version 4.52.1.",
+      "impact": "[MEDIUM] Code/SQL injection risk - Attacker could execute arbitrary code or queries",
+      "fix": "Update transformers to ['4.52.1']"
+    },
+    {
+      "number": 12,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-37mw-44qp-f5jm - A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically within the DonutProcessor class's `token2json()` method. This vulnerability affects versions 4.51.3 and earlier, and is fixed in version 4.52.1. The issue arises from the regex pattern `<s_(.*?)>` which can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. This vulnerability can lead to service disruption, resource exhaustion, and potential API service vulnerabilities, impacting document processing tasks using the Donut model.",
+      "impact": "[MEDIUM] Credential exposure - Hardcoded sensitive data could be compromised",
+      "fix": "Update transformers to ['4.52.1']"
+    },
+    {
+      "number": 13,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-9356-575x-2w9m - A Regular Expression Denial of Service (ReDoS) vulnerability exists in the Hugging Face Transformers library, specifically in the `convert_tf_weight_name_to_pt_weight_name()` function. This function, responsible for converting TensorFlow weight names to PyTorch format, uses a regex pattern `/[^/]*___([^/]*)/` that can be exploited to cause excessive CPU consumption through crafted input strings due to catastrophic backtracking. The vulnerability affects versions up to 4.51.3 and is fixed in version 4.53.0. This issue can lead to service disruption, resource exhaustion, and potential API service vulnerabilities, impacting model conversion processes between TensorFlow and PyTorch formats.",
+      "impact": "[MEDIUM] Known vulnerability - Update dependency to patched version",
+      "fix": "Update transformers to ['4.53.0']"
+    },
+    {
+      "number": 14,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-59p9-h35m-wg4g - A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically affecting the MarianTokenizer's `remove_language_code()` method. This vulnerability is present in version 4.52.4 and has been fixed in version 4.53.0. The issue arises from inefficient regex processing, which can be exploited by crafted input strings containing malformed language code patterns, leading to excessive CPU consumption and potential denial of service.",
+      "impact": "[MEDIUM] Credential exposure - Hardcoded sensitive data could be compromised",
+      "fix": "Update transformers to ['4.53.0']"
+    },
+    {
+      "number": 15,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-rcv9-qm8p-9p6j - A Regular Expression Denial of Service (ReDoS) vulnerability was discovered in the Hugging Face Transformers library, specifically within the `normalize_numbers()` method of the `EnglishNormalizer` class. This vulnerability affects versions up to 4.52.4 and is fixed in version 4.53.0. The issue arises from the method's handling of numeric strings, which can be exploited using crafted input strings containing long sequences of digits, leading to excessive CPU consumption. This vulnerability impacts text-to-speech and number normalization tasks, potentially causing service disruption, resource exhaustion, and API vulnerabilities.",
+      "impact": "[MEDIUM] Known vulnerability - Update dependency to patched version",
+      "fix": "Update transformers to ['4.53.0']"
+    },
+    {
+      "number": 16,
+      "source": "pip-audit",
+      "severity": "MEDIUM",
+      "file": "requirements.txt",
+      "line": 0,
+      "description": "GHSA-4w7r-h757-3r74 - The huggingface/transformers library, versions prior to 4.53.0, is vulnerable to Regular Expression Denial of Service (ReDoS) in the AdamWeightDecay optimizer. The vulnerability arises from the _do_use_weight_decay method, which processes user-controlled regular expressions in the include_in_weight_decay and exclude_from_weight_decay lists. Malicious regular expressions can cause catastrophic backtracking during the re.search call, leading to 100% CPU utilization and a denial of service. This issue can be exploited by attackers who can control the patterns in these lists, potentially causing the machine learning task to hang and rendering services unresponsive.",
+      "impact": "[MEDIUM] Known vulnerability - Update dependency to patched version",
+      "fix": "Update transformers to ['4.53.0']"
+    }
+  ]
+}
