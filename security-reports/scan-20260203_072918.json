@@ -1,0 +1,461 @@
+[
+  {
+    "id": 1,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 8,
+    "issue": "Consider possible security implications associated with the subprocess module.",
+    "impact": "[LOW] Potential for subprocess module misuse, allowing unauthorized code execution.",
+    "fix": "Use `subprocess.run()` with `text=True` and `capture_output=True` to prevent shell injection attacks."
+  },
+  {
+    "id": 2,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 9,
+    "issue": "Consider possible security implications associated with pickle module.",
+    "impact": "[LOW] Using the pickle module can allow arbitrary code execution, potentially leading to a security vulnerability.",
+    "fix": "Replace pickle with json or another safe serialization method."
+  },
+  {
+    "id": 3,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 18,
+    "issue": "Possible hardcoded password: 'SuperSecret123'",
+    "impact": "[LOW] Hardcoded password 'SuperSecret123' poses minimal risk if not accessed by unauthorized users.",
+    "fix": "Replace 'SuperSecret123' with an environment variable or a secure password manager."
+  },
+  {
+    "id": 4,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 24,
+    "issue": "Starting a process with a shell, possible injection detected, security issue.",
+    "impact": "[HIGH] Unvalidated input can lead to command injection, potentially allowing attackers to execute arbitrary code.",
+    "fix": "Use `subprocess.run()` with `shell=False` and pass arguments as a list to prevent injection."
+  },
+  {
+    "id": 5,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 28,
+    "issue": "Use of possibly insecure function - consider using safer ast.literal_eval.",
+    "impact": "[MEDIUM] Insecure function usage may lead to code injection vulnerabilities.",
+    "fix": "Replace `eval()` with `ast.literal_eval()` for safer evaluation of literals."
+  },
+  {
+    "id": 6,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 32,
+    "issue": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+    "impact": "[MEDIUM] Untrusted data deserialization via Pickle can lead to code injection and arbitrary code execution.",
+    "fix": "Fix: Use `pickle.load()` with caution, or consider using safer alternatives like `dill` or `cloudpickle` for deserialization."
+  },
+  {
+    "id": 7,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 39,
+    "issue": "Possible SQL injection vector through string-based query construction.",
+    "impact": "[MEDIUM] Data exposure and unauthorized database access possible through malicious input injection.",
+    "fix": "**Fix:** Use parameterized queries (e.g., `psycopg2` with `?` placeholders) to prevent string injection."
+  },
+  {
+    "id": 8,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 44,
+    "issue": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+    "impact": "[HIGH] Using MD5 for security poses a high risk of hash collisions and data breaches.",
+    "fix": "Use `hashlib.sha256()` instead of `hashlib.md5()` for stronger hashing."
+  },
+  {
+    "id": 9,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 48,
+    "issue": "Requests call without timeout",
+    "impact": "[MEDIUM] Potential denial-of-service (DoS) vulnerability due to uncontrolled request execution.",
+    "fix": "`requests.get(url, timeout=5)`"
+  },
+  {
+    "id": 10,
+    "source": "Bandit",
+    "file": "./extreme.py",
+    "line": 52,
+    "issue": "subprocess call with shell=True identified, security issue.",
+    "impact": "[HIGH] Arbitrary command execution vulnerability due to subprocess call with shell=True.",
+    "fix": "Replace `subprocess.call` with `subprocess.run` and set `shell=False` to prevent command injection."
+  },
+  {
+    "id": 11,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 5,
+    "issue": "Consider possible security implications associated with pickle module.",
+    "impact": "[LOW] Using the pickle module can lead to arbitrary code execution due to potential deserialization vulnerabilities.",
+    "fix": "Replace pickle with json or msgpack for serialization, or use a secure alternative like dill."
+  },
+  {
+    "id": 12,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 11,
+    "issue": "Possible hardcoded password: 'admin123'",
+    "impact": "[LOW] Hardcoded password 'admin123' in Bandit could allow unauthorized access, but is considered low-risk due to its simplicity.",
+    "fix": "Replace 'admin123' with a secure, environment-specific variable or a hashed password."
+  },
+  {
+    "id": 13,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 13,
+    "issue": "Possible hardcoded password: 'super_secret_token_12345'",
+    "impact": "[LOW] Hardcoded password 'super_secret_token_12345' poses a low risk of unauthorized access.",
+    "fix": "Replace 'super_secret_token_12345' with an environment variable or a secure secrets manager."
+  },
+  {
+    "id": 14,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 22,
+    "issue": "Possible SQL injection vector through string-based query construction.",
+    "impact": "[MEDIUM] Data exposure and potential unauthorized database access via malicious input.",
+    "fix": "**Fix:** Use parameterized queries with `psycopg2` instead of string concatenation."
+  },
+  {
+    "id": 15,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 29,
+    "issue": "Possible SQL injection vector through string-based query construction.",
+    "impact": "[MEDIUM] Data exposure and unauthorized access via malicious input injection.",
+    "fix": "**Fix:** Use parameterized queries (e.g., `psycopg2` in Python) to prevent SQL injection."
+  },
+  {
+    "id": 16,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 35,
+    "issue": "Starting a process with a shell, possible injection detected, security issue.",
+    "impact": "[HIGH] Potential code injection vulnerability allows malicious input to execute arbitrary commands.",
+    "fix": "Use `subprocess.run()` with `shell=False` and pass arguments as a list, e.g., `subprocess.run(['ls', '-l'])` instead of `subprocess.run('ls -l', shell=True)`."
+  },
+  {
+    "id": 17,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 40,
+    "issue": "Starting a process with a shell, possible injection detected, security issue.",
+    "impact": "[HIGH] Potential code injection vulnerability due to unsanitized shell execution.",
+    "fix": "Replace `subprocess.run(['shell', 'ls'])` with `subprocess.run(['ls'])` to prevent shell injection."
+  },
+  {
+    "id": 18,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 46,
+    "issue": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+    "impact": "[MEDIUM] Deserializing untrusted data with Pickle can lead to code injection and arbitrary code execution.",
+    "fix": "Use `pickle.loads()` instead of `pickle.load()` to safely deserialize trusted data."
+  },
+  {
+    "id": 19,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 51,
+    "issue": "Use of possibly insecure function - consider using safer ast.literal_eval.",
+    "impact": "[MEDIUM] Potential code injection vulnerability due to insecure string evaluation.",
+    "fix": "Replace `eval()` with `ast.literal_eval()` to safely evaluate literals."
+  },
+  {
+    "id": 20,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 56,
+    "issue": "Use of exec detected.",
+    "impact": "[MEDIUM] Potential code injection vulnerability due to exec usage, allowing malicious input execution.",
+    "fix": "Replace `exec()` with `subprocess.run()` or `os.system()` to avoid potential security risks."
+  },
+  {
+    "id": 21,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 61,
+    "issue": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+    "impact": "[HIGH] MD5 hash use can lead to authentication and data integrity breaches.",
+    "fix": "Change `hashlib.md5()` to `hashlib.md5()` with `usedforsecurity=False` to prevent warnings."
+  },
+  {
+    "id": 22,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 67,
+    "issue": "Standard pseudo-random generators are not suitable for security/cryptographic purposes.",
+    "impact": "[LOW] Insecure pseudo-random number generation can lead to predictable and vulnerable cryptographic outputs.",
+    "fix": "Use a cryptographically secure pseudo-random number generator (CSPRNG) like `secrets` module in Python."
+  },
+  {
+    "id": 23,
+    "source": "Bandit",
+    "file": "./one_more_vuln.py",
+    "line": 73,
+    "issue": "Try, Except, Pass detected.",
+    "impact": "[LOW] Potential security bypass through try-except-pass could mask vulnerabilities.",
+    "fix": "Replace `try`, `except`, and `pass` with a specific error handling strategy, such as logging the error and re-raising it: `try: ... except: logging.error(\"Error occurred\"); raise`"
+  },
+  {
+    "id": 24,
+    "source": "Semgrep",
+    "file": "extreme.py",
+    "line": 28,
+    "issue": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+    "impact": "[MEDIUM] Potential code injection vulnerability if eval() evaluates dynamic content from an external source.",
+    "fix": "Replace `eval()` with a safer alternative like `ast.literal_eval()` or `json.loads()` if the input is JSON."
+  },
+  {
+    "id": 25,
+    "source": "Semgrep",
+    "file": "extreme.py",
+    "line": 32,
+    "issue": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+    "impact": "[MEDIUM] Using `pickle` for serialization can lead to code execution vulnerabilities through manipulated serialized data.",
+    "fix": "Use `json` or `msgpack` for serialization instead of `pickle`."
+  },
+  {
+    "id": 26,
+    "source": "Semgrep",
+    "file": "extreme.py",
+    "line": 40,
+    "issue": "Detected possible formatted SQL query. Use parameterized queries instead.",
+    "impact": "[MEDIUM] Potential SQL injection vulnerability due to formatted query, increasing risk of unauthorized data access.",
+    "fix": "Replace string concatenation with parameterized query using a library like `sqlite3` for Python or `PreparedStatement` for Java."
+  },
+  {
+    "id": 27,
+    "source": "Semgrep",
+    "file": "extreme.py",
+    "line": 40,
+    "issue": "Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL Injection. In order to execute raw query safely, prepared statement should be used. SQLAlchemy provides TextualSQL to easily used prepared statement with named parameters. For complex SQL composition, use SQL Expression Language or Schema Definition Language. In most cases, SQLAlchemy ORM will be a better option.",
+    "impact": "[HIGH] SQL Injection vulnerability can occur when untrusted input is concatenated with raw SQL queries, which can be mitigated by using prepared statements.",
+    "fix": "Use `text()` instead of string concatenation: `session.execute(text(\"SELECT * FROM users WHERE name = :name\"), {\"name\": user_name})`"
+  },
+  {
+    "id": 28,
+    "source": "Semgrep",
+    "file": "extreme.py",
+    "line": 44,
+    "issue": "It looks like MD5 is used as a password hash. MD5 is not considered a secure password hash because it can be cracked by an attacker in a short amount of time. Use a suitable password hashing function such as scrypt. You can use `hashlib.scrypt`.",
+    "impact": "[MEDIUM] Using MD5 for password hashing is insecure and can be cracked quickly, compromising user accounts.",
+    "fix": "Replace MD5 with a secure password hashing function like bcrypt, Argon2, or PBKDF2."
+  },
+  {
+    "id": 29,
+    "source": "Semgrep",
+    "file": "extreme.py",
+    "line": 52,
+    "issue": "Found 'subprocess' function 'run' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+    "impact": "[HIGH] Unrestricted shell execution via 'shell=True' can lead to command injection and privilege escalation.",
+    "fix": "Replace `subprocess.run(..., shell=True)` with `subprocess.run(..., shell=False)` or use `subprocess.run(..., executable='/bin/bash', args=['-c', ...])` for more control."
+  },
+  {
+    "id": 30,
+    "source": "Semgrep",
+    "file": "extreme.py",
+    "line": 67,
+    "issue": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+    "impact": "[MEDIUM] Using `pickle` for serialization can lead to code execution vulnerabilities due to arbitrary code execution.",
+    "fix": "Use `json` or `msgpack` for serialization instead of `pickle`."
+  },
+  {
+    "id": 31,
+    "source": "Semgrep",
+    "file": "one_more_vuln.py",
+    "line": 23,
+    "issue": "Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL Injection. In order to execute raw query safely, prepared statement should be used. SQLAlchemy provides TextualSQL to easily used prepared statement with named parameters. For complex SQL composition, use SQL Expression Language or Schema Definition Language. In most cases, SQLAlchemy ORM will be a better option.",
+    "impact": "[HIGH] SQL Injection vulnerability can be avoided by using prepared statements instead of concatenating untrusted input with raw SQL queries.",
+    "fix": "Use `text()` instead of string concatenation: `session.execute(text(\"SELECT * FROM users WHERE name = :name\"), {\"name\": user_name})`"
+  },
+  {
+    "id": 32,
+    "source": "Semgrep",
+    "file": "one_more_vuln.py",
+    "line": 46,
+    "issue": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+    "impact": "[MEDIUM] Using `pickle` for serialization can lead to code execution vulnerabilities through arbitrary code injection.",
+    "fix": "Use `json` or `yaml` for serialization instead of `pickle`."
+  },
+  {
+    "id": 33,
+    "source": "Semgrep",
+    "file": "one_more_vuln.py",
+    "line": 51,
+    "issue": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+    "impact": "[MEDIUM] Potential code injection vulnerability if eval() evaluates dynamic content from outside the program.",
+    "fix": "Replace `eval()` with `ast.literal_eval()` or a safer alternative like `json.loads()` or `yaml.safe_load()`."
+  },
+  {
+    "id": 34,
+    "source": "Semgrep",
+    "file": "one_more_vuln.py",
+    "line": 56,
+    "issue": "Detected the use of exec(). exec() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+    "impact": "[MEDIUM] Potential code injection vulnerability if exec() evaluates dynamic content from an untrusted source.",
+    "fix": "Replace `exec()` with `subprocess.run()` or `subprocess.Popen()` for safer execution of external commands."
+  },
+  {
+    "id": 35,
+    "source": "Semgrep",
+    "file": "one_more_vuln.py",
+    "line": 61,
+    "issue": "It looks like MD5 is used as a password hash. MD5 is not considered a secure password hash because it can be cracked by an attacker in a short amount of time. Use a suitable password hashing function such as scrypt. You can use `hashlib.scrypt`.",
+    "impact": "[MEDIUM] Using MD5 as a password hash is insecure and can be cracked by attackers in a short time.",
+    "fix": "Replace MD5 with a secure password hashing function like bcrypt, Argon2, or PBKDF2."
+  },
+  {
+    "id": 36,
+    "source": "Semgrep",
+    "file": "vulnerable.java",
+    "line": 23,
+    "issue": "Detected input from a HTTPServletRequest going into a SQL sink or statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use parameterized SQL queries or properly sanitize user input instead.",
+    "impact": "[MEDIUM] SQL injection vulnerability detected, potentially allowing unauthorized database access.",
+    "fix": "**Fix:** Replace `String.format(\"SELECT * FROM users WHERE username = '%s'\", username)` with `PreparedStatement` or use a parameterized query like `SELECT * FROM users WHERE username = ?`."
+  },
+  {
+    "id": 37,
+    "source": "Semgrep",
+    "file": "vulnerable.java",
+    "line": 24,
+    "issue": "Detected a formatted string in a SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using 'connection.prepareStatement'.",
+    "impact": "[MEDIUM] Potential SQL injection vulnerability due to un sanitized variables in a SQL statement.",
+    "fix": "`Replace string concatenation with PreparedStatement`"
+  },
+  {
+    "id": 38,
+    "source": "Semgrep",
+    "file": "vulnerable.java",
+    "line": 24,
+    "issue": "Detected a formatted string in a SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using 'connection.prepareStatement'.",
+    "impact": "[HIGH] SQL injection risk due to un sanitized formatted string in SQL statement.",
+    "fix": "Replace `String.format()` with `PreparedStatement`:\n\n```java\n// Before\nString query = String.format(\"SELECT * FROM users WHERE name = '%s'\", username);\n\n// After\nPreparedStatement stmt = conn.prepareStatement(\"SELECT * FROM users WHERE name = ?\");\nst"
+  },
+  {
+    "id": 39,
+    "source": "Semgrep",
+    "file": "vulnerable.java",
+    "line": 32,
+    "issue": "Detected a request with potential user-input going into a OutputStream or Writer object. This bypasses any view or template environments, including HTML escaping, which may expose this application to cross-site scripting (XSS) vulnerabilities. Consider using a view technology such as JavaServer Faces (JSFs) which automatically escapes HTML views.",
+    "impact": "[MEDIUM] Potential user-input injection into OutputStream or Writer object bypassing HTML escaping.",
+    "fix": "Use `StringWriter` or `StringBuffer` instead of `OutputStream` or `Writer` to prevent user-input from being written directly."
+  },
+  {
+    "id": 40,
+    "source": "Semgrep",
+    "file": "vulnerable.java",
+    "line": 36,
+    "issue": "Detected a request with potential user-input going into a OutputStream or Writer object. This bypasses any view or template environments, including HTML escaping, which may expose this application to cross-site scripting (XSS) vulnerabilities. Consider using a view technology such as JavaServer Faces (JSFs) which automatically escapes HTML views.",
+    "impact": "[MEDIUM] Unescaped user-input may lead to potential XSS vulnerabilities.",
+    "fix": "Use `StringWriter` or `StringBuffer` instead of `OutputStream` or `Writer` for user-input."
+  },
+  {
+    "id": 41,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 4,
+    "issue": "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies.",
+    "impact": "[LOW] A CSRF vulnerability exists due to missing middleware, allowing potential unauthorized actions.",
+    "fix": "`app.use(csrf());` or `const csrf = require('csurf'); app.use(csrf());`"
+  },
+  {
+    "id": 42,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 14,
+    "issue": "Detected calls to child_process from a function argument `req`. This could lead to a command injection if the input is user controllable. Try to avoid calls to child_process, and if it is needed ensure user input is correctly sanitized or sandboxed. ",
+    "impact": "[HIGH] Command injection vulnerability due to unvalidated user input passed to child_process.",
+    "fix": "Replace `child_process` with a safer alternative like `child_process.execFileSync` or validate user input to prevent command injection."
+  },
+  {
+    "id": 43,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 27,
+    "issue": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+    "impact": "[MEDIUM] Directly writing to a Response object from user-defined input may expose the application to a Cross-Site-scripting (XSS) vulnerability.",
+    "fix": "Use `res.render()` or `res.json()` instead of directly writing to `res`."
+  },
+  {
+    "id": 44,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 33,
+    "issue": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+    "impact": "[MEDIUM] Directly writing to Response bypasses HTML escaping, exposing the app to XSS attacks.",
+    "fix": "**Fix:** Use `res.render()` or `res.json()` instead of directly writing to `res`."
+  },
+  {
+    "id": 45,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 38,
+    "issue": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+    "impact": "[MEDIUM] User data flowing into HTML can introduce a Cross-Site-Scripting (XSS) vulnerability.",
+    "fix": "Use a templating engine or a library like Jinja2 to separate user data from HTML."
+  },
+  {
+    "id": 46,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 38,
+    "issue": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+    "impact": "[MEDIUM] Potential XSS vulnerability due to direct Response object manipulation from user-defined input.",
+    "fix": "Use `res.render()` or `res.json()` to safely render data, or use `res.send()` with `escape()` function to prevent XSS."
+  },
+  {
+    "id": 47,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 43,
+    "issue": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+    "impact": "[MEDIUM] Potential code injection vulnerability if eval() evaluates dynamic, user-input content.",
+    "fix": "Replace `eval()` with a safer alternative like `ast.literal_eval()` or `json.loads()` if parsing JSON."
+  },
+  {
+    "id": 48,
+    "source": "Semgrep",
+    "file": "vulnerable.js",
+    "line": 43,
+    "issue": "Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable this can lead to execution of arbitrary system commands in the context of your application process. Avoid `eval` whenever possible.",
+    "impact": "[HIGH] Unvalidated user input can lead to arbitrary system command execution via `eval`.",
+    "fix": "Replace `eval` with a safer alternative like `Function` or a dedicated template engine, and validate user input to prevent code injection."
+  },
+  {
+    "id": 49,
+    "source": "pip-audit",
+    "file": "requirements.txt",
+    "line": 0,
+    "issue": "When extracting a tar archive pip may not check symbolic links point into the extraction directory if the tarfile module doesn't implement PEP 706. Note that upgrading pip to a \"fixed\" version for this vulnerability doesn't fix all known vulnerabilities that are remediated by using a Python version that implements PEP 706. Note that this is a vulnerability in pip's fallback implementation of tar extraction for Python versions that don't implement PEP 706 and therefore are not secure to all vulnerabilities in the Python 'tarfile' module. If you're using a Python version that implements PEP 706 then pip doesn't use the \"vulnerable\" fallback code. Mitigations include upgrading to a version of pip that includes the fix, upgrading to a Python version that implements PEP 706 (Python >=3.9.17, >=3.10.12, >=3.11.4, or >=3.12), applying the linked patch, or inspecting source distributions (sdists) before installation as is already a best-practice.",
+    "impact": "[MEDIUM] Potential directory traversal vulnerability when extracting tar archives with symbolic links.",
+    "fix": "Upgrade pip to a version that implements PEP 706 or use `--no-symlinks` flag when extracting the tar archive."
+  },
+  {
+    "id": 50,
+    "source": "pip-audit",
+    "file": "requirements.txt",
+    "line": 0,
+    "issue": "When pip is installing and extracting a maliciously crafted wheel archive, files may be extracted outside the installation directory. The path traversal is limited to prefixes of the installation directory, thus isn't able to inject or overwrite executable files in typical situations.",
+    "impact": "[MEDIUM] Malicious wheel archives can extract files outside the installation directory, potentially leading to unauthorized data access.",
+    "fix": "Fix: Validate and sanitize the installation directory path to prevent path traversal attacks."
+  },
+  {
+    "id": 51,
+    "source": "pip-audit",
+    "file": "requirements.txt",
+    "line": 0,
+    "issue": "A denial-of-service (DoS) vulnerability exists in google.protobuf.json_format.ParseDict() in Python, where the max_recursion_depth limit can be bypassed when parsing nested google.protobuf.Any messages.  Due to missing recursion depth accounting inside the internal Any-handling logic, an attacker can supply deeply nested Any structures that bypass the intended recursion limit, eventually exhausting Python\u2019s recursion stack and causing a RecursionError.",
+    "impact": "[MEDIUM] A DoS vulnerability in google.protobuf.json_format.ParseDict() allows bypassing max_recursion_depth, leading to potential resource exhaustion.",
+    "fix": "Increase `max_recursion_depth` to a high value (e.g., `sys.maxsize`) or use `google.protobuf.json_format.ParseDict` with a custom `MessageFactory` to prevent infinite recursion."
+  }
+]
