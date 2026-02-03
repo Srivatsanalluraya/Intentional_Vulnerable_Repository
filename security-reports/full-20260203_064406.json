@@ -1,0 +1,4681 @@
+{
+  "generated_at": "2026-02-03T06:43:55.539402Z",
+  "reports": {
+    "bandit-report.json": {
+      "errors": [],
+      "generated_at": "2026-02-03T06:43:42Z",
+      "metrics": {
+        "./extreme.py": {
+          "CONFIDENCE.HIGH": 7,
+          "CONFIDENCE.LOW": 2,
+          "CONFIDENCE.MEDIUM": 1,
+          "CONFIDENCE.UNDEFINED": 0,
+          "SEVERITY.HIGH": 3,
+          "SEVERITY.LOW": 3,
+          "SEVERITY.MEDIUM": 4,
+          "SEVERITY.UNDEFINED": 0,
+          "loc": 47,
+          "nosec": 0,
+          "skipped_tests": 0
+        },
+        "./one_more_vuln.py": {
+          "CONFIDENCE.HIGH": 9,
+          "CONFIDENCE.LOW": 2,
+          "CONFIDENCE.MEDIUM": 2,
+          "CONFIDENCE.UNDEFINED": 0,
+          "SEVERITY.HIGH": 3,
+          "SEVERITY.LOW": 5,
+          "SEVERITY.MEDIUM": 5,
+          "SEVERITY.UNDEFINED": 0,
+          "loc": 56,
+          "nosec": 0,
+          "skipped_tests": 0
+        },
+        "_totals": {
+          "CONFIDENCE.HIGH": 16,
+          "CONFIDENCE.LOW": 4,
+          "CONFIDENCE.MEDIUM": 3,
+          "CONFIDENCE.UNDEFINED": 0,
+          "SEVERITY.HIGH": 6,
+          "SEVERITY.LOW": 8,
+          "SEVERITY.MEDIUM": 9,
+          "SEVERITY.UNDEFINED": 0,
+          "loc": 103,
+          "nosec": 0,
+          "skipped_tests": 0
+        }
+      },
+      "results": [
+        {
+          "code": "7 import os\n8 import subprocess\n9 import pickle\n",
+          "col_offset": 0,
+          "end_col_offset": 17,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Consider possible security implications associated with the subprocess module.",
+          "line_number": 8,
+          "line_range": [
+            8
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_imports.html#b404-import-subprocess",
+          "test_id": "B404",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "8 import subprocess\n9 import pickle\n10 import sqlite3\n",
+          "col_offset": 0,
+          "end_col_offset": 13,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 502,
+            "link": "https://cwe.mitre.org/data/definitions/502.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Consider possible security implications associated with pickle module.",
+          "line_number": 9,
+          "line_range": [
+            9
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_imports.html#b403-import-pickle",
+          "test_id": "B403",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "17 DB_USER = \"root\"\n18 DB_PASS = \"SuperSecret123\"\n19 API_KEY = \"abcd-1234-xyz\"\n",
+          "col_offset": 10,
+          "end_col_offset": 26,
+          "filename": "./extreme.py",
+          "issue_confidence": "MEDIUM",
+          "issue_cwe": {
+            "id": 259,
+            "link": "https://cwe.mitre.org/data/definitions/259.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Possible hardcoded password: 'SuperSecret123'",
+          "line_number": 18,
+          "line_range": [
+            18
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b105_hardcoded_password_string.html",
+          "test_id": "B105",
+          "test_name": "hardcoded_password_string"
+        },
+        {
+          "code": "23     # user_input = \"anything; rm -rf /\"\n24     os.system(f\"ping -c 4 {user_input}\")\n25 \n",
+          "col_offset": 4,
+          "end_col_offset": 40,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "Starting a process with a shell, possible injection detected, security issue.",
+          "line_number": 24,
+          "line_range": [
+            24
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b605_start_process_with_a_shell.html",
+          "test_id": "B605",
+          "test_name": "start_process_with_a_shell"
+        },
+        {
+          "code": "27 def execute_user_code(code):\n28     return eval(code)  # extremely dangerous\n29 \n",
+          "col_offset": 11,
+          "end_col_offset": 21,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Use of possibly insecure function - consider using safer ast.literal_eval.",
+          "line_number": 28,
+          "line_range": [
+            28
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_calls.html#b307-eval",
+          "test_id": "B307",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "31 def load_untrusted_data(blob):\n32     return pickle.loads(blob)  # can execute arbitrary code\n33 \n",
+          "col_offset": 11,
+          "end_col_offset": 29,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 502,
+            "link": "https://cwe.mitre.org/data/definitions/502.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+          "line_number": 32,
+          "line_range": [
+            32
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_calls.html#b301-pickle",
+          "test_id": "B301",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "38     # vulnerable string concatenation\n39     query = f\"SELECT * FROM users WHERE username = '{username}'\"\n40     return cur.execute(query).fetchall()\n",
+          "col_offset": 14,
+          "end_col_offset": 52,
+          "filename": "./extreme.py",
+          "issue_confidence": "LOW",
+          "issue_cwe": {
+            "id": 89,
+            "link": "https://cwe.mitre.org/data/definitions/89.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Possible SQL injection vector through string-based query construction.",
+          "line_number": 39,
+          "line_range": [
+            39
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b608_hardcoded_sql_expressions.html",
+          "test_id": "B608",
+          "test_name": "hardcoded_sql_expressions"
+        },
+        {
+          "code": "43 def weak_hash(password):\n44     return hashlib.md5(password.encode()).hexdigest()  # MD5 is broken\n45 \n",
+          "col_offset": 11,
+          "end_col_offset": 41,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 327,
+            "link": "https://cwe.mitre.org/data/definitions/327.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+          "line_number": 44,
+          "line_range": [
+            44
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b324_hashlib.html",
+          "test_id": "B324",
+          "test_name": "hashlib"
+        },
+        {
+          "code": "47 def unsafe_http_download(url):\n48     return requests.get(url).text  # missing TLS enforcement\n49 \n",
+          "col_offset": 11,
+          "end_col_offset": 28,
+          "filename": "./extreme.py",
+          "issue_confidence": "LOW",
+          "issue_cwe": {
+            "id": 400,
+            "link": "https://cwe.mitre.org/data/definitions/400.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Requests call without timeout",
+          "line_number": 48,
+          "line_range": [
+            48
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b113_request_without_timeout.html",
+          "test_id": "B113",
+          "test_name": "request_without_timeout"
+        },
+        {
+          "code": "51 def run_shell_command(cmd):\n52     subprocess.run(cmd, shell=True)\n53 \n",
+          "col_offset": 4,
+          "end_col_offset": 35,
+          "filename": "./extreme.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "subprocess call with shell=True identified, security issue.",
+          "line_number": 52,
+          "line_range": [
+            52
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+          "test_id": "B602",
+          "test_name": "subprocess_popen_with_shell_equals_true"
+        },
+        {
+          "code": "4 import os\n5 import pickle\n6 import hashlib\n",
+          "col_offset": 0,
+          "end_col_offset": 13,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 502,
+            "link": "https://cwe.mitre.org/data/definitions/502.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Consider possible security implications associated with pickle module.",
+          "line_number": 5,
+          "line_range": [
+            5
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_imports.html#b403-import-pickle",
+          "test_id": "B403",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "10 # HIGH: Hardcoded credentials\n11 DATABASE_PASSWORD = \"admin123\"\n12 API_KEY = \"sk-1234567890abcdefghijklmnopqrstuvwxyz\"\n",
+          "col_offset": 20,
+          "end_col_offset": 30,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "MEDIUM",
+          "issue_cwe": {
+            "id": 259,
+            "link": "https://cwe.mitre.org/data/definitions/259.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Possible hardcoded password: 'admin123'",
+          "line_number": 11,
+          "line_range": [
+            11
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b105_hardcoded_password_string.html",
+          "test_id": "B105",
+          "test_name": "hardcoded_password_string"
+        },
+        {
+          "code": "12 API_KEY = \"sk-1234567890abcdefghijklmnopqrstuvwxyz\"\n13 SECRET_TOKEN = \"super_secret_token_12345\"\n14 AWS_ACCESS_KEY = \"AKIAIOSFODNN7EXAMPLE\"\n",
+          "col_offset": 15,
+          "end_col_offset": 41,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "MEDIUM",
+          "issue_cwe": {
+            "id": 259,
+            "link": "https://cwe.mitre.org/data/definitions/259.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Possible hardcoded password: 'super_secret_token_12345'",
+          "line_number": 13,
+          "line_range": [
+            13
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b105_hardcoded_password_string.html",
+          "test_id": "B105",
+          "test_name": "hardcoded_password_string"
+        },
+        {
+          "code": "21     # Concatenating user input directly into SQL query\n22     query = \"SELECT * FROM users WHERE id = '\" + user_id + \"'\"\n23     cursor.execute(query)\n",
+          "col_offset": 12,
+          "end_col_offset": 46,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "LOW",
+          "issue_cwe": {
+            "id": 89,
+            "link": "https://cwe.mitre.org/data/definitions/89.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Possible SQL injection vector through string-based query construction.",
+          "line_number": 22,
+          "line_range": [
+            22
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b608_hardcoded_sql_expressions.html",
+          "test_id": "B608",
+          "test_name": "hardcoded_sql_expressions"
+        },
+        {
+          "code": "28     \"\"\"Another SQL injection point\"\"\"\n29     query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n30     return execute_query(query)\n",
+          "col_offset": 14,
+          "end_col_offset": 55,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "LOW",
+          "issue_cwe": {
+            "id": 89,
+            "link": "https://cwe.mitre.org/data/definitions/89.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Possible SQL injection vector through string-based query construction.",
+          "line_number": 29,
+          "line_range": [
+            29
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b608_hardcoded_sql_expressions.html",
+          "test_id": "B608",
+          "test_name": "hardcoded_sql_expressions"
+        },
+        {
+          "code": "34     \"\"\"Allows arbitrary command execution\"\"\"\n35     os.system(\"ping -c 1 \" + hostname)\n36 \n",
+          "col_offset": 4,
+          "end_col_offset": 38,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "Starting a process with a shell, possible injection detected, security issue.",
+          "line_number": 35,
+          "line_range": [
+            35
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b605_start_process_with_a_shell.html",
+          "test_id": "B605",
+          "test_name": "start_process_with_a_shell"
+        },
+        {
+          "code": "39     \"\"\"Vulnerable command execution\"\"\"\n40     os.system(f\"mysqldump -u root -p{DATABASE_PASSWORD} > {filename}\")\n41 \n",
+          "col_offset": 4,
+          "end_col_offset": 70,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "Starting a process with a shell, possible injection detected, security issue.",
+          "line_number": 40,
+          "line_range": [
+            40
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b605_start_process_with_a_shell.html",
+          "test_id": "B605",
+          "test_name": "start_process_with_a_shell"
+        },
+        {
+          "code": "45     with open(session_file, 'rb') as f:\n46         return pickle.load(f)\n47 \n",
+          "col_offset": 15,
+          "end_col_offset": 29,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 502,
+            "link": "https://cwe.mitre.org/data/definitions/502.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+          "line_number": 46,
+          "line_range": [
+            46
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_calls.html#b301-pickle",
+          "test_id": "B301",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "50     \"\"\"Allows arbitrary code execution\"\"\"\n51     return eval(user_expression)\n52 \n",
+          "col_offset": 11,
+          "end_col_offset": 32,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Use of possibly insecure function - consider using safer ast.literal_eval.",
+          "line_number": 51,
+          "line_range": [
+            51
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_calls.html#b307-eval",
+          "test_id": "B307",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "55     \"\"\"Executes arbitrary Python code\"\"\"\n56     exec(code_string)\n57 \n",
+          "col_offset": 4,
+          "end_col_offset": 21,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 78,
+            "link": "https://cwe.mitre.org/data/definitions/78.html"
+          },
+          "issue_severity": "MEDIUM",
+          "issue_text": "Use of exec detected.",
+          "line_number": 56,
+          "line_range": [
+            56
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b102_exec_used.html",
+          "test_id": "B102",
+          "test_name": "exec_used"
+        },
+        {
+          "code": "60     \"\"\"MD5 is not suitable for password hashing\"\"\"\n61     return hashlib.md5(password.encode()).hexdigest()\n62 \n",
+          "col_offset": 11,
+          "end_col_offset": 41,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 327,
+            "link": "https://cwe.mitre.org/data/definitions/327.html"
+          },
+          "issue_severity": "HIGH",
+          "issue_text": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+          "line_number": 61,
+          "line_range": [
+            61
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b324_hashlib.html",
+          "test_id": "B324",
+          "test_name": "hashlib"
+        },
+        {
+          "code": "66     \"\"\"Using random instead of secrets module\"\"\"\n67     return ''.join(random.choice('abcdefghijklmnopqrstuvwxyz') for _ in range(20))\n68 \n",
+          "col_offset": 19,
+          "end_col_offset": 62,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 330,
+            "link": "https://cwe.mitre.org/data/definitions/330.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Standard pseudo-random generators are not suitable for security/cryptographic purposes.",
+          "line_number": 67,
+          "line_range": [
+            67
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/blacklists/blacklist_calls.html#b311-random",
+          "test_id": "B311",
+          "test_name": "blacklist"
+        },
+        {
+          "code": "72         return data.process()\n73     except:\n74         pass\n75 \n",
+          "col_offset": 4,
+          "end_col_offset": 12,
+          "filename": "./one_more_vuln.py",
+          "issue_confidence": "HIGH",
+          "issue_cwe": {
+            "id": 703,
+            "link": "https://cwe.mitre.org/data/definitions/703.html"
+          },
+          "issue_severity": "LOW",
+          "issue_text": "Try, Except, Pass detected.",
+          "line_number": 73,
+          "line_range": [
+            73,
+            74
+          ],
+          "more_info": "https://bandit.readthedocs.io/en/1.7.9/plugins/b110_try_except_pass.html",
+          "test_id": "B110",
+          "test_name": "try_except_pass"
+        }
+      ]
+    },
+    "semgrep-report.json": {
+      "errors": [
+        {
+          "code": 3,
+          "level": "warn",
+          "message": "Syntax error at line .github/workflows/security-scan.yml:34:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `\"R`TK Security scan [skip ci]\" || echo \"No changes to commit\"\ngit push || echo \"Push failed or no changes\"\n` was unexpected",
+          "path": ".github/workflows/security-scan.yml",
+          "spans": [
+            {
+              "end": {
+                "col": 46,
+                "line": 35,
+                "offset": 927
+              },
+              "file": ".github/workflows/security-scan.yml",
+              "start": {
+                "col": 15,
+                "line": 34,
+                "offset": 820
+              }
+            }
+          ],
+          "type": [
+            "PartialParsing",
+            [
+              {
+                "end": {
+                  "col": 46,
+                  "line": 35,
+                  "offset": 927
+                },
+                "path": ".github/workflows/security-scan.yml",
+                "start": {
+                  "col": 15,
+                  "line": 34,
+                  "offset": 820
+                }
+              }
+            ]
+          ]
+        }
+      ],
+      "interfile_languages_used": [],
+      "paths": {
+        "scanned": [
+          ".github/workflows/security-scan.yml",
+          "extreme.py",
+          "one_more_vuln.py",
+          "reports/bandit-report.json",
+          "reports/languages.txt",
+          "requirements.txt",
+          "security-reports/full-20251215_023114.json",
+          "security-reports/full-20251215_023633.json",
+          "security-reports/full-20251215_041211.json",
+          "security-reports/full-20251215_042102.json",
+          "security-reports/full-20251229_131016.json",
+          "security-reports/full-20251229_131604.json",
+          "security-reports/full-20251230_071907.json",
+          "security-reports/full-20260104_012758.json",
+          "security-reports/full-20260201_150215.json",
+          "security-reports/full-20260201_151045.json",
+          "security-reports/full-20260203_043755.json",
+          "security-reports/full-20260203_045319.json",
+          "security-reports/full-20260203_052406.json",
+          "security-reports/full-20260203_054252.json",
+          "security-reports/scan-20251215_023114.json",
+          "security-reports/scan-20251215_023633.json",
+          "security-reports/scan-20251215_041211.json",
+          "security-reports/scan-20251215_042102.json",
+          "security-reports/scan-20251229_131016.json",
+          "security-reports/scan-20251229_131604.json",
+          "security-reports/scan-20251230_071907.json",
+          "security-reports/scan-20260104_012758.json",
+          "security-reports/scan-20260201_150215.json",
+          "security-reports/scan-20260201_151045.json",
+          "security-reports/scan-20260203_043755.json",
+          "security-reports/scan-20260203_045319.json",
+          "security-reports/scan-20260203_054252.json",
+          "security-reports/summary-20251215_023114.md",
+          "security-reports/summary-20251215_023633.md",
+          "security-reports/summary-20251215_041211.md",
+          "security-reports/summary-20251215_042102.md",
+          "security-reports/summary-20251229_131016.md",
+          "security-reports/summary-20251229_131604.md",
+          "security-reports/summary-20251230_071907.md",
+          "security-reports/summary-20260104_012758.md",
+          "security-reports/summary-20260201_150215.md",
+          "security-reports/summary-20260201_151045.md",
+          "security-reports/summary-20260203_043755.md",
+          "security-reports/summary-20260203_045319.md",
+          "security-reports/summary-20260203_052406.md",
+          "security-reports/summary-20260203_054252.md",
+          "vulnerable.java",
+          "vulnerable.js"
+        ]
+      },
+      "results": [
+        {
+          "check_id": "python.lang.security.audit.eval-detected.eval-detected",
+          "end": {
+            "col": 22,
+            "line": 28,
+            "offset": 617
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "729d080bb062856a96fdbe7d261a5ff57f91fc8f3330edad454b2d59a995313377e7477ed13caacd2bb55fdd72a11b972c469100cf4bb06d43ab86e3f2568934_0",
+            "is_ignored": false,
+            "lines": "    return eval(code)  # extremely dangerous",
+            "message": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+            "metadata": {
+              "asvs": {
+                "control_id": "5.2.4 Dyanmic Code Execution Features",
+                "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+                "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+                "version": "4"
+              },
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+              ],
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://owasp.org/Top10/A03_2021-Injection"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9635,
+                  "rule_id": "gxU149",
+                  "rv_id": 1263477,
+                  "url": "https://semgrep.dev/playground/r/bZT537Q/python.lang.security.audit.eval-detected.eval-detected",
+                  "version_id": "bZT537Q"
+                }
+              },
+              "shortlink": "https://sg.run/ZvrD",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.eval-detected.eval-detected",
+              "source-rule-url": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b307-eval",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Code Injection"
+              ]
+            },
+            "metavars": {},
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 28,
+            "offset": 607
+          }
+        },
+        {
+          "check_id": "python.lang.security.deserialization.pickle.avoid-pickle",
+          "end": {
+            "col": 30,
+            "line": 32,
+            "offset": 750
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "b6b0c3a5d587991e9033bd82d1a982533c41e95a2a70bbea921641f34e314b67c2053f8cc4c8c92e25433cfed61c9ac5270f207d97ad14f49eb82dcdf117deae_0",
+            "is_ignored": false,
+            "lines": "    return pickle.loads(blob)  # can execute arbitrary code",
+            "message": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-502: Deserialization of Untrusted Data"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A08:2017 - Insecure Deserialization",
+                "A08:2021 - Software and Data Integrity Failures",
+                "A08:2025 - Software or Data Integrity Failures"
+              ],
+              "references": [
+                "https://docs.python.org/3/library/pickle.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9675,
+                  "rule_id": "EwU2BJ",
+                  "rv_id": 1263532,
+                  "url": "https://semgrep.dev/playground/r/yeTxpEE/python.lang.security.deserialization.pickle.avoid-pickle",
+                  "version_id": "yeTxpEE"
+                }
+              },
+              "shortlink": "https://sg.run/OPwB",
+              "source": "https://semgrep.dev/r/python.lang.security.deserialization.pickle.avoid-pickle",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Insecure Deserialization "
+              ]
+            },
+            "metavars": {
+              "$FUNC": {
+                "abstract_content": "loads",
+                "end": {
+                  "col": 24,
+                  "line": 32,
+                  "offset": 744
+                },
+                "start": {
+                  "col": 19,
+                  "line": 32,
+                  "offset": 739
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 32,
+            "offset": 732
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.formatted-sql-query.formatted-sql-query",
+          "end": {
+            "col": 30,
+            "line": 40,
+            "offset": 1040
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "2405960d795c79c0b5bd604fc85e5fd858a084f1f23bc21a40daf572172082dcbff2bcfd6c7642d05cfecc45e179f13eadc6aaf1c13cb0530200fd32d326d5a2_0",
+            "is_ignored": false,
+            "lines": "    return cur.execute(query).fetchall()",
+            "message": "Detected possible formatted SQL query. Use parameterized queries instead.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://stackoverflow.com/questions/775296/mysql-parameterized-queries"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9637,
+                  "rule_id": "3qUP9k",
+                  "rv_id": 1263479,
+                  "url": "https://semgrep.dev/playground/r/kbTzGBe/python.lang.security.audit.formatted-sql-query.formatted-sql-query",
+                  "version_id": "kbTzGBe"
+                }
+              },
+              "shortlink": "https://sg.run/EkWw",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.formatted-sql-query.formatted-sql-query",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$DB": {
+                "abstract_content": "cur",
+                "end": {
+                  "col": 15,
+                  "line": 40,
+                  "offset": 1025
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "conn.cursor()",
+                  "svalue_end": {
+                    "col": 24,
+                    "line": 37,
+                    "offset": 907
+                  },
+                  "svalue_start": {
+                    "col": 11,
+                    "line": 37,
+                    "offset": 894
+                  }
+                },
+                "start": {
+                  "col": 12,
+                  "line": 40,
+                  "offset": 1022
+                }
+              },
+              "$SQL": {
+                "abstract_content": "query",
+                "end": {
+                  "col": 29,
+                  "line": 40,
+                  "offset": 1039
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "f\"SELECT * FROM users WHERE username = '{username}'\"",
+                  "svalue_end": {
+                    "col": 65,
+                    "line": 39,
+                    "offset": 1010
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 39,
+                    "offset": 958
+                  }
+                },
+                "start": {
+                  "col": 24,
+                  "line": 40,
+                  "offset": 1034
+                }
+              },
+              "$X": {
+                "abstract_content": "username",
+                "end": {
+                  "col": 62,
+                  "line": 39,
+                  "offset": 1007
+                },
+                "start": {
+                  "col": 54,
+                  "line": 39,
+                  "offset": 999
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 40,
+            "offset": 1022
+          }
+        },
+        {
+          "check_id": "python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+          "end": {
+            "col": 30,
+            "line": 40,
+            "offset": 1040
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "8142737996df9eff5c8fcfc302f1efc25a9ca21ba789b8db4ab22027b508fa433bf41dfc11fa921b77b8b63e6616517f1da90f45ebe3145c323bf42643e70972_0",
+            "is_ignored": false,
+            "lines": "    return cur.execute(query).fetchall()",
+            "message": "Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL Injection. In order to execute raw query safely, prepared statement should be used. SQLAlchemy provides TextualSQL to easily used prepared statement with named parameters. For complex SQL composition, use SQL Expression Language or Schema Definition Language. In most cases, SQLAlchemy ORM will be a better option.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://docs.sqlalchemy.org/en/14/core/tutorial.html#using-textual-sql",
+                "https://www.tutorialspoint.com/sqlalchemy/sqlalchemy_quick_guide.htm",
+                "https://docs.sqlalchemy.org/en/14/core/tutorial.html#using-more-specific-text-with-table-expression-literal-column-and-expression-column"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 10563,
+                  "rule_id": "oqUz5y",
+                  "rv_id": 1263578,
+                  "url": "https://semgrep.dev/playground/r/bZT53rp/python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+                  "version_id": "bZT53rp"
+                }
+              },
+              "shortlink": "https://sg.run/2b1L",
+              "source": "https://semgrep.dev/r/python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "sqlalchemy"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$CONNECTION": {
+                "abstract_content": "cur",
+                "end": {
+                  "col": 15,
+                  "line": 40,
+                  "offset": 1025
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "conn.cursor()",
+                  "svalue_end": {
+                    "col": 24,
+                    "line": 37,
+                    "offset": 907
+                  },
+                  "svalue_start": {
+                    "col": 11,
+                    "line": 37,
+                    "offset": 894
+                  }
+                },
+                "start": {
+                  "col": 12,
+                  "line": 40,
+                  "offset": 1022
+                }
+              },
+              "$QUERY": {
+                "abstract_content": "query",
+                "end": {
+                  "col": 29,
+                  "line": 40,
+                  "offset": 1039
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "f\"SELECT * FROM users WHERE username = '{username}'\"",
+                  "svalue_end": {
+                    "col": 65,
+                    "line": 39,
+                    "offset": 1010
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 39,
+                    "offset": 958
+                  }
+                },
+                "start": {
+                  "col": 24,
+                  "line": 40,
+                  "offset": 1034
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 40,
+            "offset": 1022
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+          "end": {
+            "col": 54,
+            "line": 44,
+            "offset": 1173
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 54,
+                      "line": 44,
+                      "offset": 1173
+                    },
+                    "path": "extreme.py",
+                    "start": {
+                      "col": 12,
+                      "line": 44,
+                      "offset": 1131
+                    }
+                  },
+                  "hashlib.md5(password.encode()).hexdigest()"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 23,
+                      "line": 44,
+                      "offset": 1142
+                    },
+                    "path": "extreme.py",
+                    "start": {
+                      "col": 12,
+                      "line": 44,
+                      "offset": 1131
+                    }
+                  },
+                  "hashlib.md5"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "c59267a37dd3d3915815aab1ca5f53fa2743b3e5bbdb7d662d9362e70e30cc09380ff58135ea41660c58fe12177b195167baa8baaefdb6c7009e5731e1c40427_0",
+            "is_ignored": false,
+            "lines": "    return hashlib.md5(password.encode()).hexdigest()  # MD5 is broken",
+            "message": "It looks like MD5 is used as a password hash. MD5 is not considered a secure password hash because it can be cracked by an attacker in a short amount of time. Use a suitable password hashing function such as scrypt. You can use `hashlib.scrypt`.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+              ],
+              "impact": "LOW",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A03:2017 - Sensitive Data Exposure",
+                "A02:2021 - Cryptographic Failures",
+                "A04:2025 - Cryptographic Failures"
+              ],
+              "references": [
+                "https://tools.ietf.org/html/rfc6151",
+                "https://crypto.stackexchange.com/questions/44151/how-does-the-flame-malware-take-advantage-of-md5-collision",
+                "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html",
+                "https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords",
+                "https://github.com/returntocorp/semgrep-rules/issues/1609",
+                "https://docs.python.org/3/library/hashlib.html#hashlib.scrypt"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 14703,
+                  "rule_id": "6JU1w1",
+                  "rv_id": 1263504,
+                  "url": "https://semgrep.dev/playground/r/WrTqKDz/python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+                  "version_id": "WrTqKDz"
+                }
+              },
+              "shortlink": "https://sg.run/5DwD",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "pycryptodome",
+                "hashlib",
+                "md5"
+              ],
+              "vulnerability_class": [
+                "Cryptographic Issues"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "hashlib.md5(password.encode()).hexdigest",
+                "end": {
+                  "col": 41,
+                  "line": 1,
+                  "offset": 40
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$FUNCTION": {
+                "abstract_content": "hashlib.md5(password.encode()).hexdigest",
+                "end": {
+                  "col": 52,
+                  "line": 44,
+                  "offset": 1171
+                },
+                "start": {
+                  "col": 12,
+                  "line": 44,
+                  "offset": 1131
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 12,
+            "line": 44,
+            "offset": 1131
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "end": {
+            "col": 35,
+            "line": 52,
+            "offset": 1453
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "9c523dd4c4a73d1f9b462c80c5b797bc70a11618b294aa061f1c938e2f3f8f447ce0a81da2f92a36fae3e4424c95013167b3fcba2589b31ec9dcbb271dbccae6_0",
+            "fix": "False",
+            "is_ignored": false,
+            "lines": "    subprocess.run(cmd, shell=True)",
+            "message": "Found 'subprocess' function 'run' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "LOW",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess",
+                "https://docs.python.org/3/library/subprocess.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9646,
+                  "rule_id": "DbUpz2",
+                  "rv_id": 1263518,
+                  "url": "https://semgrep.dev/playground/r/0bTKzDK/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+                  "version_id": "0bTKzDK"
+                }
+              },
+              "shortlink": "https://sg.run/J92w",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+              "source-rule-url": "https://bandit.readthedocs.io/en/latest/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+              "subcategory": [
+                "secure default"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Command Injection"
+              ]
+            },
+            "metavars": {
+              "$FUNC": {
+                "abstract_content": "run",
+                "end": {
+                  "col": 19,
+                  "line": 52,
+                  "offset": 1437
+                },
+                "start": {
+                  "col": 16,
+                  "line": 52,
+                  "offset": 1434
+                }
+              },
+              "$TRUE": {
+                "abstract_content": "True",
+                "end": {
+                  "col": 35,
+                  "line": 52,
+                  "offset": 1453
+                },
+                "start": {
+                  "col": 31,
+                  "line": 52,
+                  "offset": 1449
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 31,
+            "line": 52,
+            "offset": 1449
+          }
+        },
+        {
+          "check_id": "python.lang.security.deserialization.pickle.avoid-pickle",
+          "end": {
+            "col": 58,
+            "line": 67,
+            "offset": 2002
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "50e4f4e73b03ce44703215a59d66e2bedf85830a441db529315d6e312bf25ef1365b687921501609d523af5f232205f4403686f77a2e0c6579d0e049406d57c0_0",
+            "is_ignored": false,
+            "lines": "    print(load_untrusted_data(pickle.dumps({\"test\": 123})))",
+            "message": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-502: Deserialization of Untrusted Data"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A08:2017 - Insecure Deserialization",
+                "A08:2021 - Software and Data Integrity Failures",
+                "A08:2025 - Software or Data Integrity Failures"
+              ],
+              "references": [
+                "https://docs.python.org/3/library/pickle.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9675,
+                  "rule_id": "EwU2BJ",
+                  "rv_id": 1263532,
+                  "url": "https://semgrep.dev/playground/r/yeTxpEE/python.lang.security.deserialization.pickle.avoid-pickle",
+                  "version_id": "yeTxpEE"
+                }
+              },
+              "shortlink": "https://sg.run/OPwB",
+              "source": "https://semgrep.dev/r/python.lang.security.deserialization.pickle.avoid-pickle",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Insecure Deserialization "
+              ]
+            },
+            "metavars": {
+              "$FUNC": {
+                "abstract_content": "dumps",
+                "end": {
+                  "col": 43,
+                  "line": 67,
+                  "offset": 1987
+                },
+                "start": {
+                  "col": 38,
+                  "line": 67,
+                  "offset": 1982
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "extreme.py",
+          "start": {
+            "col": 31,
+            "line": 67,
+            "offset": 1975
+          }
+        },
+        {
+          "check_id": "python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+          "end": {
+            "col": 26,
+            "line": 23,
+            "offset": 732
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "10b611700cf0db02789a0ff0c4ebaeefc7c8c5de28f2abc890a866085789fb0ec2743cbe58e1ee710e18740cd874bcb13fc977caa104d2f615fadecc17e88bfe_0",
+            "is_ignored": false,
+            "lines": "    cursor.execute(query)",
+            "message": "Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL Injection. In order to execute raw query safely, prepared statement should be used. SQLAlchemy provides TextualSQL to easily used prepared statement with named parameters. For complex SQL composition, use SQL Expression Language or Schema Definition Language. In most cases, SQLAlchemy ORM will be a better option.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://docs.sqlalchemy.org/en/14/core/tutorial.html#using-textual-sql",
+                "https://www.tutorialspoint.com/sqlalchemy/sqlalchemy_quick_guide.htm",
+                "https://docs.sqlalchemy.org/en/14/core/tutorial.html#using-more-specific-text-with-table-expression-literal-column-and-expression-column"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 10563,
+                  "rule_id": "oqUz5y",
+                  "rv_id": 1263578,
+                  "url": "https://semgrep.dev/playground/r/bZT53rp/python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+                  "version_id": "bZT53rp"
+                }
+              },
+              "shortlink": "https://sg.run/2b1L",
+              "source": "https://semgrep.dev/r/python.sqlalchemy.security.sqlalchemy-execute-raw-query.sqlalchemy-execute-raw-query",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "sqlalchemy"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$CONNECTION": {
+                "abstract_content": "cursor",
+                "end": {
+                  "col": 11,
+                  "line": 23,
+                  "offset": 717
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "conn.cursor()",
+                  "svalue_end": {
+                    "col": 27,
+                    "line": 20,
+                    "offset": 588
+                  },
+                  "svalue_start": {
+                    "col": 14,
+                    "line": 20,
+                    "offset": 575
+                  }
+                },
+                "start": {
+                  "col": 5,
+                  "line": 23,
+                  "offset": 711
+                }
+              },
+              "$QUERY": {
+                "abstract_content": "query",
+                "end": {
+                  "col": 25,
+                  "line": 23,
+                  "offset": 731
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "\"SELECT * FROM users WHERE id = '\"+user_id+\"'\"",
+                  "svalue_end": {
+                    "col": 63,
+                    "line": 22,
+                    "offset": 706
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 22,
+                    "offset": 656
+                  }
+                },
+                "start": {
+                  "col": 20,
+                  "line": 23,
+                  "offset": 726
+                }
+              },
+              "$SQL": {
+                "abstract_content": "\"SELECT * FROM users WHERE id = '\"+user_id",
+                "end": {
+                  "col": 57,
+                  "line": 22,
+                  "offset": 700
+                },
+                "start": {
+                  "col": 13,
+                  "line": 22,
+                  "offset": 656
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "one_more_vuln.py",
+          "start": {
+            "col": 5,
+            "line": 23,
+            "offset": 711
+          }
+        },
+        {
+          "check_id": "python.lang.security.deserialization.pickle.avoid-pickle",
+          "end": {
+            "col": 30,
+            "line": 46,
+            "offset": 1502
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "8afd2d5fd007c22a6372ad86d194fae54af0f900618748878fac0240fb0ec3eb0892af1cd8844f24d8d4b3bcdc39e00ab42a3e0538d0fc07047f62e0918747ee_0",
+            "is_ignored": false,
+            "lines": "        return pickle.load(f)",
+            "message": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-502: Deserialization of Untrusted Data"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A08:2017 - Insecure Deserialization",
+                "A08:2021 - Software and Data Integrity Failures",
+                "A08:2025 - Software or Data Integrity Failures"
+              ],
+              "references": [
+                "https://docs.python.org/3/library/pickle.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9675,
+                  "rule_id": "EwU2BJ",
+                  "rv_id": 1263532,
+                  "url": "https://semgrep.dev/playground/r/yeTxpEE/python.lang.security.deserialization.pickle.avoid-pickle",
+                  "version_id": "yeTxpEE"
+                }
+              },
+              "shortlink": "https://sg.run/OPwB",
+              "source": "https://semgrep.dev/r/python.lang.security.deserialization.pickle.avoid-pickle",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Insecure Deserialization "
+              ]
+            },
+            "metavars": {
+              "$FUNC": {
+                "abstract_content": "load",
+                "end": {
+                  "col": 27,
+                  "line": 46,
+                  "offset": 1499
+                },
+                "start": {
+                  "col": 23,
+                  "line": 46,
+                  "offset": 1495
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "one_more_vuln.py",
+          "start": {
+            "col": 16,
+            "line": 46,
+            "offset": 1488
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.eval-detected.eval-detected",
+          "end": {
+            "col": 33,
+            "line": 51,
+            "offset": 1662
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "98f9f4bf73779ea25f324de1286a97318bbd4cce1fc7e4fe5e2783ba5a3f872523ab47620f785a3440e57494bf7c56b3ee0319928e9d0f290a987519751eb44c_0",
+            "is_ignored": false,
+            "lines": "    return eval(user_expression)",
+            "message": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+            "metadata": {
+              "asvs": {
+                "control_id": "5.2.4 Dyanmic Code Execution Features",
+                "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+                "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+                "version": "4"
+              },
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+              ],
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://owasp.org/Top10/A03_2021-Injection"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9635,
+                  "rule_id": "gxU149",
+                  "rv_id": 1263477,
+                  "url": "https://semgrep.dev/playground/r/bZT537Q/python.lang.security.audit.eval-detected.eval-detected",
+                  "version_id": "bZT537Q"
+                }
+              },
+              "shortlink": "https://sg.run/ZvrD",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.eval-detected.eval-detected",
+              "source-rule-url": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b307-eval",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Code Injection"
+              ]
+            },
+            "metavars": {},
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "one_more_vuln.py",
+          "start": {
+            "col": 12,
+            "line": 51,
+            "offset": 1641
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.exec-detected.exec-detected",
+          "end": {
+            "col": 22,
+            "line": 56,
+            "offset": 1779
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "2d63e30ccef8fce55ef3ccc6eeec96070c37af8a8b1fcb962e61c7668678976c4eb47137088f20f436e3da5b6bd6cbb508f009208ed8c3cf6a22cc0c75043553_0",
+            "is_ignored": false,
+            "lines": "    exec(code_string)",
+            "message": "Detected the use of exec(). exec() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+            "metadata": {
+              "asvs": {
+                "control_id": "5.2.4 Dyanmic Code Execution Features",
+                "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+                "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+                "version": "4"
+              },
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+              ],
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://owasp.org/Top10/A03_2021-Injection"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9636,
+                  "rule_id": "QrUzKv",
+                  "rv_id": 1263478,
+                  "url": "https://semgrep.dev/playground/r/NdTzyKJ/python.lang.security.audit.exec-detected.exec-detected",
+                  "version_id": "NdTzyKJ"
+                }
+              },
+              "shortlink": "https://sg.run/ndRX",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.exec-detected.exec-detected",
+              "source-rule-url": "https://bandit.readthedocs.io/en/latest/plugins/b102_exec_used.html",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "python"
+              ],
+              "vulnerability_class": [
+                "Code Injection"
+              ]
+            },
+            "metavars": {},
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "one_more_vuln.py",
+          "start": {
+            "col": 5,
+            "line": 56,
+            "offset": 1762
+          }
+        },
+        {
+          "check_id": "python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+          "end": {
+            "col": 54,
+            "line": 61,
+            "offset": 1954
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 54,
+                      "line": 61,
+                      "offset": 1954
+                    },
+                    "path": "one_more_vuln.py",
+                    "start": {
+                      "col": 12,
+                      "line": 61,
+                      "offset": 1912
+                    }
+                  },
+                  "hashlib.md5(password.encode()).hexdigest()"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 23,
+                      "line": 61,
+                      "offset": 1923
+                    },
+                    "path": "one_more_vuln.py",
+                    "start": {
+                      "col": 12,
+                      "line": 61,
+                      "offset": 1912
+                    }
+                  },
+                  "hashlib.md5"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "2f25763aec4d2d1307f73352a4209b1547abdef5fd48bf4b9758cff07c8040ffd1b3a8399e06273dd399d029217e1e14ca35088eb76a934bcedffd6b77e5ee8b_0",
+            "is_ignored": false,
+            "lines": "    return hashlib.md5(password.encode()).hexdigest()",
+            "message": "It looks like MD5 is used as a password hash. MD5 is not considered a secure password hash because it can be cracked by an attacker in a short amount of time. Use a suitable password hashing function such as scrypt. You can use `hashlib.scrypt`.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+              ],
+              "impact": "LOW",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A03:2017 - Sensitive Data Exposure",
+                "A02:2021 - Cryptographic Failures",
+                "A04:2025 - Cryptographic Failures"
+              ],
+              "references": [
+                "https://tools.ietf.org/html/rfc6151",
+                "https://crypto.stackexchange.com/questions/44151/how-does-the-flame-malware-take-advantage-of-md5-collision",
+                "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html",
+                "https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords",
+                "https://github.com/returntocorp/semgrep-rules/issues/1609",
+                "https://docs.python.org/3/library/hashlib.html#hashlib.scrypt"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 14703,
+                  "rule_id": "6JU1w1",
+                  "rv_id": 1263504,
+                  "url": "https://semgrep.dev/playground/r/WrTqKDz/python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+                  "version_id": "WrTqKDz"
+                }
+              },
+              "shortlink": "https://sg.run/5DwD",
+              "source": "https://semgrep.dev/r/python.lang.security.audit.md5-used-as-password.md5-used-as-password",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "pycryptodome",
+                "hashlib",
+                "md5"
+              ],
+              "vulnerability_class": [
+                "Cryptographic Issues"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "hashlib.md5(password.encode()).hexdigest",
+                "end": {
+                  "col": 41,
+                  "line": 1,
+                  "offset": 40
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$FUNCTION": {
+                "abstract_content": "hashlib.md5(password.encode()).hexdigest",
+                "end": {
+                  "col": 52,
+                  "line": 61,
+                  "offset": 1952
+                },
+                "start": {
+                  "col": 12,
+                  "line": 61,
+                  "offset": 1912
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "one_more_vuln.py",
+          "start": {
+            "col": 12,
+            "line": 61,
+            "offset": 1912
+          }
+        },
+        {
+          "check_id": "java.lang.security.audit.sqli.tainted-sql-from-http-request.tainted-sql-from-http-request",
+          "end": {
+            "col": 15,
+            "line": 26,
+            "offset": 924
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [
+                {
+                  "content": "user",
+                  "location": {
+                    "end": {
+                      "col": 20,
+                      "line": 17,
+                      "offset": 530
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 16,
+                      "line": 17,
+                      "offset": 526
+                    }
+                  }
+                }
+              ],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 15,
+                      "line": 26,
+                      "offset": 924
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 13,
+                      "line": 23,
+                      "offset": 754
+                    }
+                  },
+                  "Statement stmt = con.createStatement();\n            ResultSet rs = stmt.executeQuery(\n                \"SELECT * FROM users WHERE username = '\" + user + \"'\"\n            );"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 51,
+                      "line": 17,
+                      "offset": 561
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 23,
+                      "line": 17,
+                      "offset": 533
+                    }
+                  },
+                  "request.getParameter(\"user\")"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "3db970f09f8171cf615f49e962ba1959ec84c0efa2051d86cf6a18dd434f6019c29b1a6eb50b5a77228fdcd2d3c2ade716e424440c0b21b607863a97485e8dd1_0",
+            "is_ignored": false,
+            "lines": "            Statement stmt = con.createStatement();\n            ResultSet rs = stmt.executeQuery(\n                \"SELECT * FROM users WHERE username = '\" + user + \"'\"\n            );",
+            "message": "Detected input from a HTTPServletRequest going into a SQL sink or statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use parameterized SQL queries or properly sanitize user input instead.",
+            "metadata": {
+              "category": "security",
+              "confidence": "HIGH",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+                "https://owasp.org/www-community/attacks/SQL_Injection"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 18239,
+                  "rule_id": "oqUBJG",
+                  "rv_id": 1263039,
+                  "url": "https://semgrep.dev/playground/r/nWT2LJ0/java.lang.security.audit.sqli.tainted-sql-from-http-request.tainted-sql-from-http-request",
+                  "version_id": "nWT2LJ0"
+                }
+              },
+              "shortlink": "https://sg.run/Lg56",
+              "source": "https://semgrep.dev/r/java.lang.security.audit.sqli.tainted-sql-from-http-request.tainted-sql-from-http-request",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "sql",
+                "java",
+                "servlets",
+                "spring"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "getParameter",
+                "end": {
+                  "col": 13,
+                  "line": 1,
+                  "offset": 12
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$FUNC": {
+                "abstract_content": "executeQuery",
+                "end": {
+                  "col": 45,
+                  "line": 24,
+                  "offset": 838
+                },
+                "start": {
+                  "col": 33,
+                  "line": 24,
+                  "offset": 826
+                }
+              },
+              "$OUTPUT": {
+                "abstract_content": "rs",
+                "end": {
+                  "col": 25,
+                  "line": 24,
+                  "offset": 818
+                },
+                "start": {
+                  "col": 23,
+                  "line": 24,
+                  "offset": 816
+                }
+              },
+              "$REQ": {
+                "abstract_content": "request",
+                "end": {
+                  "col": 30,
+                  "line": 17,
+                  "offset": 540
+                },
+                "start": {
+                  "col": 23,
+                  "line": 17,
+                  "offset": 533
+                }
+              },
+              "$REQFUNC": {
+                "abstract_content": "getParameter",
+                "end": {
+                  "col": 43,
+                  "line": 17,
+                  "offset": 553
+                },
+                "start": {
+                  "col": 31,
+                  "line": 17,
+                  "offset": 541
+                }
+              },
+              "$STMT": {
+                "abstract_content": "stmt",
+                "end": {
+                  "col": 27,
+                  "line": 23,
+                  "offset": 768
+                },
+                "start": {
+                  "col": 23,
+                  "line": 23,
+                  "offset": 764
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.java",
+          "start": {
+            "col": 13,
+            "line": 23,
+            "offset": 754
+          }
+        },
+        {
+          "check_id": "java.lang.security.audit.sqli.jdbc-sqli.jdbc-sqli",
+          "end": {
+            "col": 15,
+            "line": 26,
+            "offset": 924
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "f301a3c38ce3a8179ccf2bc464a0ba7c64d6741562ee280c2995beb197ba1816e3418c6b1cec5d9de0f4d66e1ffbc06add967b8630b943cfe688569c29eabfcc_0",
+            "is_ignored": false,
+            "lines": "            ResultSet rs = stmt.executeQuery(\n                \"SELECT * FROM users WHERE username = '\" + user + \"'\"\n            );",
+            "message": "Detected a formatted string in a SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using 'connection.prepareStatement'.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://owasp.org/Top10/A03_2021-Injection"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9206,
+                  "rule_id": "oqUe8K",
+                  "rv_id": 1263036,
+                  "url": "https://semgrep.dev/playground/r/vdT06oL/java.lang.security.audit.sqli.jdbc-sqli.jdbc-sqli",
+                  "version_id": "vdT06oL"
+                }
+              },
+              "shortlink": "https://sg.run/AvkL",
+              "source": "https://semgrep.dev/r/java.lang.security.audit.sqli.jdbc-sqli.jdbc-sqli",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "jdbc"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "executeQuery",
+                "end": {
+                  "col": 13,
+                  "line": 1,
+                  "offset": 12
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$METHOD": {
+                "abstract_content": "executeQuery",
+                "end": {
+                  "col": 45,
+                  "line": 24,
+                  "offset": 838
+                },
+                "start": {
+                  "col": 33,
+                  "line": 24,
+                  "offset": 826
+                }
+              },
+              "$S": {
+                "abstract_content": "stmt",
+                "end": {
+                  "col": 32,
+                  "line": 24,
+                  "offset": 825
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "con.createStatement()",
+                  "svalue_end": {
+                    "col": 51,
+                    "line": 23,
+                    "offset": 792
+                  },
+                  "svalue_start": {
+                    "col": 30,
+                    "line": 23,
+                    "offset": 771
+                  }
+                },
+                "start": {
+                  "col": 28,
+                  "line": 24,
+                  "offset": 821
+                }
+              },
+              "$X": {
+                "abstract_content": "\"SELECT * FROM users WHERE username = '\"+user",
+                "end": {
+                  "col": 64,
+                  "line": 25,
+                  "offset": 903
+                },
+                "start": {
+                  "col": 17,
+                  "line": 25,
+                  "offset": 856
+                }
+              },
+              "$Y": {
+                "abstract_content": "\"'\"",
+                "end": {
+                  "col": 70,
+                  "line": 25,
+                  "offset": 909
+                },
+                "start": {
+                  "col": 67,
+                  "line": 25,
+                  "offset": 906
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.java",
+          "start": {
+            "col": 13,
+            "line": 24,
+            "offset": 806
+          }
+        },
+        {
+          "check_id": "java.lang.security.audit.formatted-sql-string.formatted-sql-string",
+          "end": {
+            "col": 14,
+            "line": 26,
+            "offset": 923
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [
+                {
+                  "content": "user",
+                  "location": {
+                    "end": {
+                      "col": 20,
+                      "line": 17,
+                      "offset": 530
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 16,
+                      "line": 17,
+                      "offset": 526
+                    }
+                  }
+                }
+              ],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 14,
+                      "line": 26,
+                      "offset": 923
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 28,
+                      "line": 24,
+                      "offset": 821
+                    }
+                  },
+                  "stmt.executeQuery(\n                \"SELECT * FROM users WHERE username = '\" + user + \"'\"\n            )"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 30,
+                      "line": 17,
+                      "offset": 540
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 23,
+                      "line": 17,
+                      "offset": 533
+                    }
+                  },
+                  "request"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "4d38d66e12489d36eb855986b57081201cf1432a0d0c64358c7b3c4697037ca19f2b89d3bc6709c909b1ffb96ca89f7b6c4589e2078f24160bd2aac54dd9ed8c_0",
+            "is_ignored": false,
+            "lines": "            ResultSet rs = stmt.executeQuery(\n                \"SELECT * FROM users WHERE username = '\" + user + \"'\"\n            );",
+            "message": "Detected a formatted string in a SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using 'connection.prepareStatement'.",
+            "metadata": {
+              "asvs": {
+                "control_id": "5.3.5 Injection",
+                "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v53-output-encoding-and-injection-prevention-requirements",
+                "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+                "version": "4"
+              },
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+                "https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html#create_ps",
+                "https://software-security.sans.org/developer-how-to/fix-sql-injection-in-java-using-prepared-callable-statement"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9175,
+                  "rule_id": "QrUzxR",
+                  "rv_id": 1263022,
+                  "url": "https://semgrep.dev/playground/r/2KTv25G/java.lang.security.audit.formatted-sql-string.formatted-sql-string",
+                  "version_id": "2KTv25G"
+                }
+              },
+              "shortlink": "https://sg.run/OPXp",
+              "source": "https://semgrep.dev/r/java.lang.security.audit.formatted-sql-string.formatted-sql-string",
+              "source-rule-url": "https://find-sec-bugs.github.io/bugs.htm#SQL_INJECTION",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "java"
+              ],
+              "vulnerability_class": [
+                "SQL Injection"
+              ]
+            },
+            "metavars": {
+              "$REQ": {
+                "abstract_content": "request",
+                "end": {
+                  "col": 30,
+                  "line": 17,
+                  "offset": 540
+                },
+                "start": {
+                  "col": 23,
+                  "line": 17,
+                  "offset": 533
+                }
+              },
+              "$S": {
+                "abstract_content": "stmt",
+                "end": {
+                  "col": 32,
+                  "line": 24,
+                  "offset": 825
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "con.createStatement()",
+                  "svalue_end": {
+                    "col": 51,
+                    "line": 23,
+                    "offset": 792
+                  },
+                  "svalue_start": {
+                    "col": 30,
+                    "line": 23,
+                    "offset": 771
+                  }
+                },
+                "start": {
+                  "col": 28,
+                  "line": 24,
+                  "offset": 821
+                }
+              },
+              "$SQLFUNC": {
+                "abstract_content": "executeQuery",
+                "end": {
+                  "col": 45,
+                  "line": 24,
+                  "offset": 838
+                },
+                "start": {
+                  "col": 33,
+                  "line": 24,
+                  "offset": 826
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.java",
+          "start": {
+            "col": 28,
+            "line": 24,
+            "offset": 821
+          }
+        },
+        {
+          "check_id": "java.lang.security.audit.xss.no-direct-response-writer.no-direct-response-writer",
+          "end": {
+            "col": 58,
+            "line": 32,
+            "offset": 1080
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [
+                {
+                  "content": "user",
+                  "location": {
+                    "end": {
+                      "col": 20,
+                      "line": 17,
+                      "offset": 530
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 16,
+                      "line": 17,
+                      "offset": 526
+                    }
+                  }
+                }
+              ],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 58,
+                      "line": 32,
+                      "offset": 1080
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 13,
+                      "line": 32,
+                      "offset": 1035
+                    }
+                  },
+                  "response.getWriter().println(\"Hello \" + user)"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 51,
+                      "line": 17,
+                      "offset": 561
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 23,
+                      "line": 17,
+                      "offset": 533
+                    }
+                  },
+                  "request.getParameter(\"user\")"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "3f15b17d5b742024cb1888a7767b54e070ef2a77da8adf41d185031676b32d0d08c9d0657556033bf9d582ad3b88dade3203b66916dcee98d57affec55b20655_0",
+            "is_ignored": false,
+            "lines": "            response.getWriter().println(\"Hello \" + user);",
+            "message": "Detected a request with potential user-input going into a OutputStream or Writer object. This bypasses any view or template environments, including HTML escaping, which may expose this application to cross-site scripting (XSS) vulnerabilities. Consider using a view technology such as JavaServer Faces (JSFs) which automatically escapes HTML views.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "interfile": true,
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A07:2017 - Cross-Site Scripting (XSS)",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaServerFaces.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9211,
+                  "rule_id": "j2Uv7B",
+                  "rv_id": 1263055,
+                  "url": "https://semgrep.dev/playground/r/DkTRbXy/java.lang.security.audit.xss.no-direct-response-writer.no-direct-response-writer",
+                  "version_id": "DkTRbXy"
+                }
+              },
+              "shortlink": "https://sg.run/KlRL",
+              "source": "https://semgrep.dev/r/java.lang.security.audit.xss.no-direct-response-writer.no-direct-response-writer",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "java",
+                "servlets"
+              ],
+              "vulnerability_class": [
+                "Cross-Site-Scripting (XSS)"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "getParameter",
+                "end": {
+                  "col": 13,
+                  "line": 1,
+                  "offset": 12
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$REQ": {
+                "abstract_content": "request",
+                "end": {
+                  "col": 30,
+                  "line": 17,
+                  "offset": 540
+                },
+                "start": {
+                  "col": 23,
+                  "line": 17,
+                  "offset": 533
+                }
+              },
+              "$REQFUNC": {
+                "abstract_content": "getParameter",
+                "end": {
+                  "col": 43,
+                  "line": 17,
+                  "offset": 553
+                },
+                "start": {
+                  "col": 31,
+                  "line": 17,
+                  "offset": 541
+                }
+              },
+              "$RESPONSE": {
+                "abstract_content": "response",
+                "end": {
+                  "col": 21,
+                  "line": 32,
+                  "offset": 1043
+                },
+                "start": {
+                  "col": 13,
+                  "line": 32,
+                  "offset": 1035
+                }
+              },
+              "$WRITE": {
+                "abstract_content": "println",
+                "end": {
+                  "col": 41,
+                  "line": 32,
+                  "offset": 1063
+                },
+                "start": {
+                  "col": 34,
+                  "line": 32,
+                  "offset": 1056
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.java",
+          "start": {
+            "col": 13,
+            "line": 32,
+            "offset": 1035
+          }
+        },
+        {
+          "check_id": "java.lang.security.audit.xss.no-direct-response-writer.no-direct-response-writer",
+          "end": {
+            "col": 71,
+            "line": 36,
+            "offset": 1224
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [
+                {
+                  "content": "user",
+                  "location": {
+                    "end": {
+                      "col": 20,
+                      "line": 17,
+                      "offset": 530
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 16,
+                      "line": 17,
+                      "offset": 526
+                    }
+                  }
+                },
+                {
+                  "content": "rs",
+                  "location": {
+                    "end": {
+                      "col": 25,
+                      "line": 24,
+                      "offset": 818
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 23,
+                      "line": 24,
+                      "offset": 816
+                    }
+                  }
+                }
+              ],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 71,
+                      "line": 36,
+                      "offset": 1224
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 17,
+                      "line": 36,
+                      "offset": 1170
+                    }
+                  },
+                  "response.getWriter().println(rs.getString(\"password\"))"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 51,
+                      "line": 17,
+                      "offset": 561
+                    },
+                    "path": "vulnerable.java",
+                    "start": {
+                      "col": 23,
+                      "line": 17,
+                      "offset": 533
+                    }
+                  },
+                  "request.getParameter(\"user\")"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "3f15b17d5b742024cb1888a7767b54e070ef2a77da8adf41d185031676b32d0d08c9d0657556033bf9d582ad3b88dade3203b66916dcee98d57affec55b20655_1",
+            "is_ignored": false,
+            "lines": "                response.getWriter().println(rs.getString(\"password\"));",
+            "message": "Detected a request with potential user-input going into a OutputStream or Writer object. This bypasses any view or template environments, including HTML escaping, which may expose this application to cross-site scripting (XSS) vulnerabilities. Consider using a view technology such as JavaServer Faces (JSFs) which automatically escapes HTML views.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "interfile": true,
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A07:2017 - Cross-Site Scripting (XSS)",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaServerFaces.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9211,
+                  "rule_id": "j2Uv7B",
+                  "rv_id": 1263055,
+                  "url": "https://semgrep.dev/playground/r/DkTRbXy/java.lang.security.audit.xss.no-direct-response-writer.no-direct-response-writer",
+                  "version_id": "DkTRbXy"
+                }
+              },
+              "shortlink": "https://sg.run/KlRL",
+              "source": "https://semgrep.dev/r/java.lang.security.audit.xss.no-direct-response-writer.no-direct-response-writer",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "java",
+                "servlets"
+              ],
+              "vulnerability_class": [
+                "Cross-Site-Scripting (XSS)"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "getParameter",
+                "end": {
+                  "col": 13,
+                  "line": 1,
+                  "offset": 12
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$REQ": {
+                "abstract_content": "request",
+                "end": {
+                  "col": 30,
+                  "line": 17,
+                  "offset": 540
+                },
+                "start": {
+                  "col": 23,
+                  "line": 17,
+                  "offset": 533
+                }
+              },
+              "$REQFUNC": {
+                "abstract_content": "getParameter",
+                "end": {
+                  "col": 43,
+                  "line": 17,
+                  "offset": 553
+                },
+                "start": {
+                  "col": 31,
+                  "line": 17,
+                  "offset": 541
+                }
+              },
+              "$RESPONSE": {
+                "abstract_content": "response",
+                "end": {
+                  "col": 25,
+                  "line": 36,
+                  "offset": 1178
+                },
+                "start": {
+                  "col": 17,
+                  "line": 36,
+                  "offset": 1170
+                }
+              },
+              "$WRITE": {
+                "abstract_content": "println",
+                "end": {
+                  "col": 45,
+                  "line": 36,
+                  "offset": 1198
+                },
+                "start": {
+                  "col": 38,
+                  "line": 36,
+                  "offset": 1191
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.java",
+          "start": {
+            "col": 17,
+            "line": 36,
+            "offset": 1170
+          }
+        },
+        {
+          "check_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+          "end": {
+            "col": 22,
+            "line": 4,
+            "offset": 126
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "945ff754491e8e8c7ec9fb38738dd96a15ace4f84d3c865b04f7882f790b796766033bd4959230a72e253a2fa2b839de13520f764b19d14883ce5646782fa046_0",
+            "is_ignored": false,
+            "lines": "const app = express();",
+            "message": "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies.",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-352: Cross-Site Request Forgery (CSRF)"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2021 - Broken Access Control",
+                "A01:2025 - Broken Access Control"
+              ],
+              "references": [
+                "https://www.npmjs.com/package/csurf",
+                "https://www.npmjs.com/package/csrf",
+                "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 22551,
+                  "rule_id": "wdUKEq",
+                  "rv_id": 1263128,
+                  "url": "https://semgrep.dev/playground/r/yeTxp5d/javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+                  "version_id": "yeTxp5d"
+                }
+              },
+              "shortlink": "https://sg.run/BxzR",
+              "source": "https://semgrep.dev/r/javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "javascript",
+                "typescript",
+                "express"
+              ],
+              "vulnerability_class": [
+                "Cross-Site Request Forgery (CSRF)"
+              ]
+            },
+            "metavars": {
+              "$APP": {
+                "abstract_content": "app",
+                "end": {
+                  "col": 10,
+                  "line": 4,
+                  "offset": 114
+                },
+                "start": {
+                  "col": 7,
+                  "line": 4,
+                  "offset": 111
+                }
+              },
+              "$EXPRESS": {
+                "abstract_content": "express",
+                "end": {
+                  "col": 20,
+                  "line": 4,
+                  "offset": 124
+                },
+                "start": {
+                  "col": 13,
+                  "line": 4,
+                  "offset": 117
+                }
+              }
+            },
+            "severity": "INFO",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 7,
+            "line": 4,
+            "offset": 111
+          }
+        },
+        {
+          "check_id": "javascript.lang.security.detect-child-process.detect-child-process",
+          "end": {
+            "col": 11,
+            "line": 14,
+            "offset": 331
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [
+                {
+                  "content": "req",
+                  "location": {
+                    "end": {
+                      "col": 21,
+                      "line": 12,
+                      "offset": 280
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 18,
+                      "line": 12,
+                      "offset": 277
+                    }
+                  }
+                },
+                {
+                  "content": "cmd",
+                  "location": {
+                    "end": {
+                      "col": 12,
+                      "line": 13,
+                      "offset": 303
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 9,
+                      "line": 13,
+                      "offset": 300
+                    }
+                  }
+                }
+              ],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 11,
+                      "line": 14,
+                      "offset": 331
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 8,
+                      "line": 14,
+                      "offset": 328
+                    }
+                  },
+                  "cmd"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 21,
+                      "line": 12,
+                      "offset": 280
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 18,
+                      "line": 12,
+                      "offset": 277
+                    }
+                  },
+                  "req"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "3f260ce0474c51cd5f235dc3b826a90bf034e552c459922fb84f460b5188512808822e09f45b46afb38ec84794b76cc884d33b53f6f76853bc30b1ee3318f052_0",
+            "is_ignored": false,
+            "lines": "  exec(cmd, (err, stdout, stderr) => {",
+            "message": "Detected calls to child_process from a function argument `req`. This could lead to a command injection if the input is user controllable. Try to avoid calls to child_process, and if it is needed ensure user input is correctly sanitized or sandboxed. ",
+            "metadata": {
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "HIGH",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A01:2017 - Injection",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html#do-not-use-dangerous-functions"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9313,
+                  "rule_id": "10UKNB",
+                  "rv_id": 1263212,
+                  "url": "https://semgrep.dev/playground/r/BjTkZQy/javascript.lang.security.detect-child-process.detect-child-process",
+                  "version_id": "BjTkZQy"
+                }
+              },
+              "shortlink": "https://sg.run/l2lo",
+              "source": "https://semgrep.dev/r/javascript.lang.security.detect-child-process.detect-child-process",
+              "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-child-process.js",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "javascript"
+              ],
+              "vulnerability_class": [
+                "Command Injection"
+              ]
+            },
+            "metavars": {
+              "$CMD": {
+                "abstract_content": "cmd",
+                "end": {
+                  "col": 11,
+                  "line": 14,
+                  "offset": 331
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "req.query.cmd",
+                  "svalue_end": {
+                    "col": 28,
+                    "line": 13,
+                    "offset": 319
+                  },
+                  "svalue_start": {
+                    "col": 15,
+                    "line": 13,
+                    "offset": 306
+                  }
+                },
+                "start": {
+                  "col": 8,
+                  "line": 14,
+                  "offset": 328
+                }
+              },
+              "$FUNC": {
+                "abstract_content": "req",
+                "end": {
+                  "col": 21,
+                  "line": 12,
+                  "offset": 280
+                },
+                "start": {
+                  "col": 18,
+                  "line": 12,
+                  "offset": 277
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 8,
+            "line": 14,
+            "offset": 328
+          }
+        },
+        {
+          "check_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+          "end": {
+            "col": 39,
+            "line": 27,
+            "offset": 650
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [
+                {
+                  "content": "query",
+                  "location": {
+                    "end": {
+                      "col": 14,
+                      "line": 21,
+                      "offset": 478
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 9,
+                      "line": 21,
+                      "offset": 473
+                    }
+                  }
+                }
+              ],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 39,
+                      "line": 27,
+                      "offset": 650
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 12,
+                      "line": 27,
+                      "offset": 623
+                    }
+                  },
+                  "\"Executing query: \" + query"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 13,
+                      "line": 23,
+                      "offset": 540
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 5,
+                      "line": 23,
+                      "offset": 532
+                    }
+                  },
+                  "req.body"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "e1130123041b6c9a213322c65deb07e292753541feee15367f57b19a17e0c7b5233492625aea53d9f7fee3cfd0665656e50f4f45e5e1274dcecc7e6c4ad8fd21_0",
+            "is_ignored": false,
+            "lines": "  res.send(\"Executing query: \" + query);",
+            "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "interfile": true,
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "MEDIUM",
+              "owasp": [
+                "A07:2017 - Cross-Site Scripting (XSS)",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9277,
+                  "rule_id": "3qUPA1",
+                  "rv_id": 1263150,
+                  "url": "https://semgrep.dev/playground/r/JdTzxeg/javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+                  "version_id": "JdTzxeg"
+                }
+              },
+              "shortlink": "https://sg.run/vzGl",
+              "source": "https://semgrep.dev/r/javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "express"
+              ],
+              "vulnerability_class": [
+                "Cross-Site-Scripting (XSS)"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "post",
+                "end": {
+                  "col": 5,
+                  "line": 1,
+                  "offset": 4
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$APP": {
+                "abstract_content": "app",
+                "end": {
+                  "col": 4,
+                  "line": 20,
+                  "offset": 433
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "express()",
+                  "svalue_end": {
+                    "col": 22,
+                    "line": 4,
+                    "offset": 126
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 4,
+                    "offset": 117
+                  }
+                },
+                "start": {
+                  "col": 1,
+                  "line": 20,
+                  "offset": 430
+                }
+              },
+              "$ARG": {
+                "abstract_content": "\"Executing query: \"+query",
+                "end": {
+                  "col": 39,
+                  "line": 27,
+                  "offset": 650
+                },
+                "start": {
+                  "col": 12,
+                  "line": 27,
+                  "offset": 623
+                }
+              },
+              "$METHOD": {
+                "abstract_content": "post",
+                "end": {
+                  "col": 9,
+                  "line": 20,
+                  "offset": 438
+                },
+                "start": {
+                  "col": 5,
+                  "line": 20,
+                  "offset": 434
+                }
+              },
+              "$REQ": {
+                "abstract_content": "req",
+                "end": {
+                  "col": 8,
+                  "line": 23,
+                  "offset": 535
+                },
+                "start": {
+                  "col": 5,
+                  "line": 23,
+                  "offset": 532
+                }
+              },
+              "$RES": {
+                "abstract_content": "res",
+                "end": {
+                  "col": 29,
+                  "line": 20,
+                  "offset": 458
+                },
+                "start": {
+                  "col": 26,
+                  "line": 20,
+                  "offset": 455
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 12,
+            "line": 27,
+            "offset": 623
+          }
+        },
+        {
+          "check_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+          "end": {
+            "col": 41,
+            "line": 33,
+            "offset": 780
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [
+                {
+                  "content": "file",
+                  "location": {
+                    "end": {
+                      "col": 13,
+                      "line": 32,
+                      "offset": 721
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 9,
+                      "line": 32,
+                      "offset": 717
+                    }
+                  }
+                }
+              ],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 41,
+                      "line": 33,
+                      "offset": 780
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 12,
+                      "line": 33,
+                      "offset": 751
+                    }
+                  },
+                  "fs.readFileSync(file, \"utf8\")"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 25,
+                      "line": 32,
+                      "offset": 733
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 16,
+                      "line": 32,
+                      "offset": 724
+                    }
+                  },
+                  "req.query"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "c41837a16f1e235873f2c9c5b2e8612e756534dc6b754bf5a19ea24f1e2c9060b1cfa04b482711b89a9dfeccfbcf8d5a10092a2ef5cb24166e89e23b02bde50b_0",
+            "is_ignored": false,
+            "lines": "  res.send(fs.readFileSync(file, \"utf8\"));",
+            "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "interfile": true,
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "MEDIUM",
+              "owasp": [
+                "A07:2017 - Cross-Site Scripting (XSS)",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9277,
+                  "rule_id": "3qUPA1",
+                  "rv_id": 1263150,
+                  "url": "https://semgrep.dev/playground/r/JdTzxeg/javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+                  "version_id": "JdTzxeg"
+                }
+              },
+              "shortlink": "https://sg.run/vzGl",
+              "source": "https://semgrep.dev/r/javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "express"
+              ],
+              "vulnerability_class": [
+                "Cross-Site-Scripting (XSS)"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "get",
+                "end": {
+                  "col": 4,
+                  "line": 1,
+                  "offset": 3
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$APP": {
+                "abstract_content": "app",
+                "end": {
+                  "col": 4,
+                  "line": 31,
+                  "offset": 679
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "express()",
+                  "svalue_end": {
+                    "col": 22,
+                    "line": 4,
+                    "offset": 126
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 4,
+                    "offset": 117
+                  }
+                },
+                "start": {
+                  "col": 1,
+                  "line": 31,
+                  "offset": 676
+                }
+              },
+              "$ARG": {
+                "abstract_content": "fs.readFileSync(file\"utf8\")",
+                "end": {
+                  "col": 41,
+                  "line": 33,
+                  "offset": 780
+                },
+                "start": {
+                  "col": 12,
+                  "line": 33,
+                  "offset": 751
+                }
+              },
+              "$METHOD": {
+                "abstract_content": "get",
+                "end": {
+                  "col": 8,
+                  "line": 31,
+                  "offset": 683
+                },
+                "start": {
+                  "col": 5,
+                  "line": 31,
+                  "offset": 680
+                }
+              },
+              "$REQ": {
+                "abstract_content": "req",
+                "end": {
+                  "col": 19,
+                  "line": 32,
+                  "offset": 727
+                },
+                "start": {
+                  "col": 16,
+                  "line": 32,
+                  "offset": 724
+                }
+              },
+              "$RES": {
+                "abstract_content": "res",
+                "end": {
+                  "col": 27,
+                  "line": 31,
+                  "offset": 702
+                },
+                "start": {
+                  "col": 24,
+                  "line": 31,
+                  "offset": 699
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 12,
+            "line": 33,
+            "offset": 751
+          }
+        },
+        {
+          "check_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+          "end": {
+            "col": 41,
+            "line": 38,
+            "offset": 869
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 41,
+                      "line": 38,
+                      "offset": 869
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 12,
+                      "line": 38,
+                      "offset": 840
+                    }
+                  },
+                  "\"<h1>Hello \" + req.query.name"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 36,
+                      "line": 38,
+                      "offset": 864
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 27,
+                      "line": 38,
+                      "offset": 855
+                    }
+                  },
+                  "req.query"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "14a5d220380fd4b552d22e47e3d87c2b3167f87d5aa199be06881e7e080b25d42781280b20c2b010890cf5aa4976b9bf9eac60b0e324a4d954f26726b9c93831_0",
+            "is_ignored": false,
+            "lines": "  res.send(\"<h1>Hello \" + req.query.name + \"</h1>\");",
+            "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "HIGH",
+              "owasp": [
+                "A07:2017 - Cross-Site Scripting (XSS)",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 14691,
+                  "rule_id": "5rUL0X",
+                  "rv_id": 1263175,
+                  "url": "https://semgrep.dev/playground/r/NdTzyQv/javascript.express.security.injection.raw-html-format.raw-html-format",
+                  "version_id": "NdTzyQv"
+                }
+              },
+              "shortlink": "https://sg.run/5DO3",
+              "source": "https://semgrep.dev/r/javascript.express.security.injection.raw-html-format.raw-html-format",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "express"
+              ],
+              "vulnerability_class": [
+                "Cross-Site-Scripting (XSS)"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "get",
+                "end": {
+                  "col": 4,
+                  "line": 1,
+                  "offset": 3
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$APP": {
+                "abstract_content": "app",
+                "end": {
+                  "col": 4,
+                  "line": 37,
+                  "offset": 798
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "express()",
+                  "svalue_end": {
+                    "col": 22,
+                    "line": 4,
+                    "offset": 126
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 4,
+                    "offset": 117
+                  }
+                },
+                "start": {
+                  "col": 1,
+                  "line": 37,
+                  "offset": 795
+                }
+              },
+              "$EXPR": {
+                "abstract_content": "req.query.name",
+                "end": {
+                  "col": 41,
+                  "line": 38,
+                  "offset": 869
+                },
+                "start": {
+                  "col": 27,
+                  "line": 38,
+                  "offset": 855
+                }
+              },
+              "$HTMLSTR": {
+                "abstract_content": "<h1>Hello ",
+                "end": {
+                  "col": 23,
+                  "line": 38,
+                  "offset": 851
+                },
+                "start": {
+                  "col": 13,
+                  "line": 38,
+                  "offset": 841
+                }
+              },
+              "$METHOD": {
+                "abstract_content": "get",
+                "end": {
+                  "col": 8,
+                  "line": 37,
+                  "offset": 802
+                },
+                "start": {
+                  "col": 5,
+                  "line": 37,
+                  "offset": 799
+                }
+              },
+              "$REQ": {
+                "abstract_content": "req",
+                "end": {
+                  "col": 30,
+                  "line": 38,
+                  "offset": 858
+                },
+                "start": {
+                  "col": 27,
+                  "line": 38,
+                  "offset": 855
+                }
+              },
+              "$RES": {
+                "abstract_content": "res",
+                "end": {
+                  "col": 28,
+                  "line": 37,
+                  "offset": 822
+                },
+                "start": {
+                  "col": 25,
+                  "line": 37,
+                  "offset": 819
+                }
+              },
+              "$TAG": {
+                "abstract_content": "h1",
+                "end": {
+                  "col": 16,
+                  "line": 38,
+                  "offset": 844
+                },
+                "start": {
+                  "col": 14,
+                  "line": 38,
+                  "offset": 842
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 12,
+            "line": 38,
+            "offset": 840
+          }
+        },
+        {
+          "check_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+          "end": {
+            "col": 51,
+            "line": 38,
+            "offset": 879
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 51,
+                      "line": 38,
+                      "offset": 879
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 12,
+                      "line": 38,
+                      "offset": 840
+                    }
+                  },
+                  "\"<h1>Hello \" + req.query.name + \"</h1>\""
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 36,
+                      "line": 38,
+                      "offset": 864
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 27,
+                      "line": 38,
+                      "offset": 855
+                    }
+                  },
+                  "req.query"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "e48a646010d52b03eaaa5ad04bfb37ec0aec871b42f8e36ae868d40b3a8b30217e511c967fae02656bbf9958381e9dc46d2e5c403f827eac535caa145a5a5d63_0",
+            "is_ignored": false,
+            "lines": "  res.send(\"<h1>Hello \" + req.query.name + \"</h1>\");",
+            "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+            "metadata": {
+              "category": "security",
+              "confidence": "MEDIUM",
+              "cwe": [
+                "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              ],
+              "cwe2021-top25": true,
+              "cwe2022-top25": true,
+              "impact": "MEDIUM",
+              "interfile": true,
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "MEDIUM",
+              "owasp": [
+                "A07:2017 - Cross-Site Scripting (XSS)",
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9277,
+                  "rule_id": "3qUPA1",
+                  "rv_id": 1263150,
+                  "url": "https://semgrep.dev/playground/r/JdTzxeg/javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+                  "version_id": "JdTzxeg"
+                }
+              },
+              "shortlink": "https://sg.run/vzGl",
+              "source": "https://semgrep.dev/r/javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "express"
+              ],
+              "vulnerability_class": [
+                "Cross-Site-Scripting (XSS)"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "get",
+                "end": {
+                  "col": 4,
+                  "line": 1,
+                  "offset": 3
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$APP": {
+                "abstract_content": "app",
+                "end": {
+                  "col": 4,
+                  "line": 37,
+                  "offset": 798
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "express()",
+                  "svalue_end": {
+                    "col": 22,
+                    "line": 4,
+                    "offset": 126
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 4,
+                    "offset": 117
+                  }
+                },
+                "start": {
+                  "col": 1,
+                  "line": 37,
+                  "offset": 795
+                }
+              },
+              "$ARG": {
+                "abstract_content": "\"<h1>Hello \"+req.query.name+\"</h1>\"",
+                "end": {
+                  "col": 51,
+                  "line": 38,
+                  "offset": 879
+                },
+                "start": {
+                  "col": 12,
+                  "line": 38,
+                  "offset": 840
+                }
+              },
+              "$METHOD": {
+                "abstract_content": "get",
+                "end": {
+                  "col": 8,
+                  "line": 37,
+                  "offset": 802
+                },
+                "start": {
+                  "col": 5,
+                  "line": 37,
+                  "offset": 799
+                }
+              },
+              "$REQ": {
+                "abstract_content": "req",
+                "end": {
+                  "col": 30,
+                  "line": 38,
+                  "offset": 858
+                },
+                "start": {
+                  "col": 27,
+                  "line": 38,
+                  "offset": 855
+                }
+              },
+              "$RES": {
+                "abstract_content": "res",
+                "end": {
+                  "col": 28,
+                  "line": 37,
+                  "offset": 822
+                },
+                "start": {
+                  "col": 25,
+                  "line": 37,
+                  "offset": 819
+                }
+              }
+            },
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 12,
+            "line": 38,
+            "offset": 840
+          }
+        },
+        {
+          "check_id": "javascript.browser.security.eval-detected.eval-detected",
+          "end": {
+            "col": 22,
+            "line": 43,
+            "offset": 977
+          },
+          "extra": {
+            "engine_kind": "OSS",
+            "fingerprint": "ad27159bb5ff97de03732ee7fa3c396d2f75b9f57fce0036020a1ac4c60cfd62dfb99f661e0b0d420faef56afe76f80039d3d8642d770d5f93b8af08636c441d_0",
+            "is_ignored": false,
+            "lines": "  eval(req.body.data);",
+            "message": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+            "metadata": {
+              "asvs": {
+                "control_id": "5.2.4 Dynamic Code Execution Features",
+                "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing",
+                "section": "V5 Validation, Sanitization and Encoding",
+                "version": "4"
+              },
+              "category": "security",
+              "confidence": "LOW",
+              "cwe": [
+                "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+              ],
+              "impact": "MEDIUM",
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "LOW",
+              "owasp": [
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://owasp.org/Top10/A03_2021-Injection"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 9238,
+                  "rule_id": "GdU7dw",
+                  "rv_id": 1263117,
+                  "url": "https://semgrep.dev/playground/r/l4TJR2y/javascript.browser.security.eval-detected.eval-detected",
+                  "version_id": "l4TJR2y"
+                }
+              },
+              "shortlink": "https://sg.run/7ope",
+              "source": "https://semgrep.dev/r/javascript.browser.security.eval-detected.eval-detected",
+              "subcategory": [
+                "audit"
+              ],
+              "technology": [
+                "browser"
+              ],
+              "vulnerability_class": [
+                "Code Injection"
+              ]
+            },
+            "metavars": {},
+            "severity": "WARNING",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 3,
+            "line": 43,
+            "offset": 958
+          }
+        },
+        {
+          "check_id": "javascript.lang.security.audit.code-string-concat.code-string-concat",
+          "end": {
+            "col": 22,
+            "line": 43,
+            "offset": 977
+          },
+          "extra": {
+            "dataflow_trace": {
+              "intermediate_vars": [],
+              "taint_sink": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 22,
+                      "line": 43,
+                      "offset": 977
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 3,
+                      "line": 43,
+                      "offset": 958
+                    }
+                  },
+                  "eval(req.body.data)"
+                ]
+              ],
+              "taint_source": [
+                "CliLoc",
+                [
+                  {
+                    "end": {
+                      "col": 16,
+                      "line": 43,
+                      "offset": 971
+                    },
+                    "path": "vulnerable.js",
+                    "start": {
+                      "col": 8,
+                      "line": 43,
+                      "offset": 963
+                    }
+                  },
+                  "req.body"
+                ]
+              ]
+            },
+            "engine_kind": "OSS",
+            "fingerprint": "e38a67a28e3377351e49e378f57dfa3167bf7ddb3e64173f2991a9a46b0184225146161f8283fdf895a9b7de502b540a80bc294164200873998e17356325dd68_0",
+            "is_ignored": false,
+            "lines": "  eval(req.body.data);",
+            "message": "Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable this can lead to execution of arbitrary system commands in the context of your application process. Avoid `eval` whenever possible.",
+            "metadata": {
+              "category": "security",
+              "confidence": "HIGH",
+              "cwe": [
+                "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+              ],
+              "impact": "MEDIUM",
+              "interfile": true,
+              "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+              "likelihood": "MEDIUM",
+              "owasp": [
+                "A03:2021 - Injection",
+                "A05:2025 - Injection"
+              ],
+              "references": [
+                "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval",
+                "https://nodejs.org/api/child_process.html#child_processexeccommand-options-callback",
+                "https://www.stackhawk.com/blog/nodejs-command-injection-examples-and-prevention/",
+                "https://ckarande.gitbooks.io/owasp-nodegoat-tutorial/content/tutorial/a1_-_server_side_js_injection.html"
+              ],
+              "semgrep.dev": {
+                "rule": {
+                  "origin": "community",
+                  "r_id": 13023,
+                  "rule_id": "DbUKEz",
+                  "rv_id": 1263192,
+                  "url": "https://semgrep.dev/playground/r/44TEjYX/javascript.lang.security.audit.code-string-concat.code-string-concat",
+                  "version_id": "44TEjYX"
+                }
+              },
+              "shortlink": "https://sg.run/96Yk",
+              "source": "https://semgrep.dev/r/javascript.lang.security.audit.code-string-concat.code-string-concat",
+              "subcategory": [
+                "vuln"
+              ],
+              "technology": [
+                "node.js",
+                "Express",
+                "Next.js"
+              ],
+              "vulnerability_class": [
+                "Code Injection"
+              ]
+            },
+            "metavars": {
+              "$1": {
+                "abstract_content": "post",
+                "end": {
+                  "col": 5,
+                  "line": 1,
+                  "offset": 4
+                },
+                "start": {
+                  "col": 1,
+                  "line": 1,
+                  "offset": 0
+                }
+              },
+              "$APP": {
+                "abstract_content": "app",
+                "end": {
+                  "col": 4,
+                  "line": 42,
+                  "offset": 918
+                },
+                "propagated_value": {
+                  "svalue_abstract_content": "express()",
+                  "svalue_end": {
+                    "col": 22,
+                    "line": 4,
+                    "offset": 126
+                  },
+                  "svalue_start": {
+                    "col": 13,
+                    "line": 4,
+                    "offset": 117
+                  }
+                },
+                "start": {
+                  "col": 1,
+                  "line": 42,
+                  "offset": 915
+                }
+              },
+              "$METHOD": {
+                "abstract_content": "post",
+                "end": {
+                  "col": 9,
+                  "line": 42,
+                  "offset": 923
+                },
+                "start": {
+                  "col": 5,
+                  "line": 42,
+                  "offset": 919
+                }
+              },
+              "$REQ": {
+                "abstract_content": "req",
+                "end": {
+                  "col": 11,
+                  "line": 43,
+                  "offset": 966
+                },
+                "start": {
+                  "col": 8,
+                  "line": 43,
+                  "offset": 963
+                }
+              },
+              "$RES": {
+                "abstract_content": "res",
+                "end": {
+                  "col": 35,
+                  "line": 42,
+                  "offset": 949
+                },
+                "start": {
+                  "col": 32,
+                  "line": 42,
+                  "offset": 946
+                }
+              }
+            },
+            "severity": "ERROR",
+            "validation_state": "NO_VALIDATOR"
+          },
+          "path": "vulnerable.js",
+          "start": {
+            "col": 3,
+            "line": 43,
+            "offset": 958
+          }
+        }
+      ],
+      "skipped_rules": [],
+      "version": "1.80.0"
+    },
+    "pip-audit-report.json": {
+      "dependencies": [
+        {
+          "name": "annotated-types",
+          "version": "0.7.0",
+          "vulns": []
+        },
+        {
+          "name": "anyio",
+          "version": "4.12.1",
+          "vulns": []
+        },
+        {
+          "name": "attrs",
+          "version": "25.4.0",
+          "vulns": []
+        },
+        {
+          "name": "authlib",
+          "version": "1.6.6",
+          "vulns": []
+        },
+        {
+          "name": "bandit",
+          "version": "1.7.9",
+          "vulns": []
+        },
+        {
+          "name": "boltons",
+          "version": "21.0.0",
+          "vulns": []
+        },
+        {
+          "name": "boolean-py",
+          "version": "5.0",
+          "vulns": []
+        },
+        {
+          "name": "bracex",
+          "version": "2.6",
+          "vulns": []
+        },
+        {
+          "name": "cachecontrol",
+          "version": "0.14.4",
+          "vulns": []
+        },
+        {
+          "name": "certifi",
+          "version": "2026.1.4",
+          "vulns": []
+        },
+        {
+          "name": "cffi",
+          "version": "2.0.0",
+          "vulns": []
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.4.4",
+          "vulns": []
+        },
+        {
+          "name": "click",
+          "version": "8.3.1",
+          "vulns": []
+        },
+        {
+          "name": "click-option-group",
+          "version": "0.5.9",
+          "vulns": []
+        },
+        {
+          "name": "colorama",
+          "version": "0.4.6",
+          "vulns": []
+        },
+        {
+          "name": "cryptography",
+          "version": "46.0.4",
+          "vulns": []
+        },
+        {
+          "name": "cyclonedx-python-lib",
+          "version": "7.6.2",
+          "vulns": []
+        },
+        {
+          "name": "defusedxml",
+          "version": "0.7.1",
+          "vulns": []
+        },
+        {
+          "name": "deprecated",
+          "version": "1.3.1",
+          "vulns": []
+        },
+        {
+          "name": "distro",
+          "version": "1.9.0",
+          "vulns": []
+        },
+        {
+          "name": "dparse",
+          "version": "0.6.4",
+          "vulns": []
+        },
+        {
+          "name": "exceptiongroup",
+          "version": "1.2.2",
+          "vulns": []
+        },
+        {
+          "name": "face",
+          "version": "24.0.0",
+          "vulns": []
+        },
+        {
+          "name": "filelock",
+          "version": "3.20.3",
+          "vulns": []
+        },
+        {
+          "name": "glom",
+          "version": "22.1.0",
+          "vulns": []
+        },
+        {
+          "name": "googleapis-common-protos",
+          "version": "1.72.0",
+          "vulns": []
+        },
+        {
+          "name": "groq",
+          "version": "1.0.0",
+          "vulns": []
+        },
+        {
+          "name": "h11",
+          "version": "0.16.0",
+          "vulns": []
+        },
+        {
+          "name": "html5lib",
+          "version": "1.1",
+          "vulns": []
+        },
+        {
+          "name": "httpcore",
+          "version": "1.0.9",
+          "vulns": []
+        },
+        {
+          "name": "httpx",
+          "version": "0.28.1",
+          "vulns": []
+        },
+        {
+          "name": "idna",
+          "version": "3.11",
+          "vulns": []
+        },
+        {
+          "name": "importlib-metadata",
+          "version": "7.1.0",
+          "vulns": []
+        },
+        {
+          "name": "iniconfig",
+          "version": "2.3.0",
+          "vulns": []
+        },
+        {
+          "name": "jinja2",
+          "version": "3.1.6",
+          "vulns": []
+        },
+        {
+          "name": "joblib",
+          "version": "1.5.3",
+          "vulns": []
+        },
+        {
+          "name": "jsonschema",
+          "version": "4.26.0",
+          "vulns": []
+        },
+        {
+          "name": "jsonschema-specifications",
+          "version": "2025.9.1",
+          "vulns": []
+        },
+        {
+          "name": "license-expression",
+          "version": "30.4.4",
+          "vulns": []
+        },
+        {
+          "name": "markdown-it-py",
+          "version": "4.0.0",
+          "vulns": []
+        },
+        {
+          "name": "markupsafe",
+          "version": "3.0.3",
+          "vulns": []
+        },
+        {
+          "name": "marshmallow",
+          "version": "4.2.1",
+          "vulns": []
+        },
+        {
+          "name": "mdurl",
+          "version": "0.1.2",
+          "vulns": []
+        },
+        {
+          "name": "msgpack",
+          "version": "1.1.2",
+          "vulns": []
+        },
+        {
+          "name": "nltk",
+          "version": "3.9.2",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-api",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-exporter-otlp-proto-common",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-exporter-otlp-proto-http",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-instrumentation",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-instrumentation-requests",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-proto",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-sdk",
+          "version": "1.25.0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-semantic-conventions",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "opentelemetry-util-http",
+          "version": "0.46b0",
+          "vulns": []
+        },
+        {
+          "name": "packageurl-python",
+          "version": "0.17.6",
+          "vulns": []
+        },
+        {
+          "name": "packaging",
+          "version": "26.0",
+          "vulns": []
+        },
+        {
+          "name": "peewee",
+          "version": "3.19.0",
+          "vulns": []
+        },
+        {
+          "name": "pip",
+          "version": "25.0.1",
+          "vulns": [
+            {
+              "id": "GHSA-4xh5-x5gv-qwph",
+              "fix_versions": [
+                "25.3"
+              ],
+              "aliases": [
+                "CVE-2025-8869"
+              ],
+              "description": "When extracting a tar archive pip may not check symbolic links point into the extraction directory if the tarfile module doesn't implement PEP 706. Note that upgrading pip to a \"fixed\" version for this vulnerability doesn't fix all known vulnerabilities that are remediated by using a Python version that implements PEP 706. Note that this is a vulnerability in pip's fallback implementation of tar extraction for Python versions that don't implement PEP 706 and therefore are not secure to all vulnerabilities in the Python 'tarfile' module. If you're using a Python version that implements PEP 706 then pip doesn't use the \"vulnerable\" fallback code. Mitigations include upgrading to a version of pip that includes the fix, upgrading to a Python version that implements PEP 706 (Python >=3.9.17, >=3.10.12, >=3.11.4, or >=3.12), applying the linked patch, or inspecting source distributions (sdists) before installation as is already a best-practice."
+            },
+            {
+              "id": "GHSA-6vgw-5pg2-w6jp",
+              "fix_versions": [
+                "26.0"
+              ],
+              "aliases": [
+                "CVE-2026-1703"
+              ],
+              "description": "When pip is installing and extracting a maliciously crafted wheel archive, files may be extracted outside the installation directory. The path traversal is limited to prefixes of the installation directory, thus isn't able to inject or overwrite executable files in typical situations."
+            }
+          ]
+        },
+        {
+          "name": "pip-api",
+          "version": "0.0.34",
+          "vulns": []
+        },
+        {
+          "name": "pip-audit",
+          "version": "2.7.3",
+          "vulns": []
+        },
+        {
+          "name": "pip-requirements-parser",
+          "version": "32.0.1",
+          "vulns": []
+        },
+        {
+          "name": "pluggy",
+          "version": "1.6.0",
+          "vulns": []
+        },
+        {
+          "name": "protobuf",
+          "version": "4.25.8",
+          "vulns": [
+            {
+              "id": "GHSA-7gcm-g887-7qv7",
+              "fix_versions": [],
+              "aliases": [
+                "CVE-2026-0994"
+              ],
+              "description": "A denial-of-service (DoS) vulnerability exists in google.protobuf.json_format.ParseDict() in Python, where the max_recursion_depth limit can be bypassed when parsing nested google.protobuf.Any messages.  Due to missing recursion depth accounting inside the internal Any-handling logic, an attacker can supply deeply nested Any structures that bypass the intended recursion limit, eventually exhausting Python\u2019s recursion stack and causing a RecursionError."
+            }
+          ]
+        },
+        {
+          "name": "py-serializable",
+          "version": "1.1.2",
+          "vulns": []
+        },
+        {
+          "name": "pycparser",
+          "version": "3.0",
+          "vulns": []
+        },
+        {
+          "name": "pydantic",
+          "version": "2.12.5",
+          "vulns": []
+        },
+        {
+          "name": "pydantic-core",
+          "version": "2.41.5",
+          "vulns": []
+        },
+        {
+          "name": "pygments",
+          "version": "2.19.2",
+          "vulns": []
+        },
+        {
+          "name": "pyparsing",
+          "version": "3.3.2",
+          "vulns": []
+        },
+        {
+          "name": "pytest",
+          "version": "9.0.2",
+          "vulns": []
+        },
+        {
+          "name": "pyyaml",
+          "version": "6.0.3",
+          "vulns": []
+        },
+        {
+          "name": "referencing",
+          "version": "0.37.0",
+          "vulns": []
+        },
+        {
+          "name": "regex",
+          "version": "2026.1.15",
+          "vulns": []
+        },
+        {
+          "name": "requests",
+          "version": "2.32.5",
+          "vulns": []
+        },
+        {
+          "name": "rich",
+          "version": "14.3.2",
+          "vulns": []
+        },
+        {
+          "name": "rpds-py",
+          "version": "0.30.0",
+          "vulns": []
+        },
+        {
+          "name": "ruamel-yaml",
+          "version": "0.17.40",
+          "vulns": []
+        },
+        {
+          "name": "ruamel-yaml-clib",
+          "version": "0.2.15",
+          "vulns": []
+        },
+        {
+          "name": "safety",
+          "version": "3.7.0",
+          "vulns": []
+        },
+        {
+          "name": "safety-schemas",
+          "version": "0.0.16",
+          "vulns": []
+        },
+        {
+          "name": "semgrep",
+          "version": "1.80.0",
+          "vulns": []
+        },
+        {
+          "name": "setuptools",
+          "version": "80.10.2",
+          "vulns": []
+        },
+        {
+          "name": "shellingham",
+          "version": "1.5.4",
+          "vulns": []
+        },
+        {
+          "name": "six",
+          "version": "1.17.0",
+          "vulns": []
+        },
+        {
+          "name": "sniffio",
+          "version": "1.3.1",
+          "vulns": []
+        },
+        {
+          "name": "sortedcontainers",
+          "version": "2.4.0",
+          "vulns": []
+        },
+        {
+          "name": "stevedore",
+          "version": "5.6.0",
+          "vulns": []
+        },
+        {
+          "name": "tenacity",
+          "version": "9.1.2",
+          "vulns": []
+        },
+        {
+          "name": "toml",
+          "version": "0.10.2",
+          "vulns": []
+        },
+        {
+          "name": "tomli",
+          "version": "2.0.2",
+          "vulns": []
+        },
+        {
+          "name": "tomlkit",
+          "version": "0.14.0",
+          "vulns": []
+        },
+        {
+          "name": "tqdm",
+          "version": "4.67.2",
+          "vulns": []
+        },
+        {
+          "name": "typer",
+          "version": "0.21.1",
+          "vulns": []
+        },
+        {
+          "name": "typing-extensions",
+          "version": "4.15.0",
+          "vulns": []
+        },
+        {
+          "name": "typing-inspection",
+          "version": "0.4.2",
+          "vulns": []
+        },
+        {
+          "name": "urllib3",
+          "version": "2.6.3",
+          "vulns": []
+        },
+        {
+          "name": "wcmatch",
+          "version": "8.5.2",
+          "vulns": []
+        },
+        {
+          "name": "webencodings",
+          "version": "0.5.1",
+          "vulns": []
+        },
+        {
+          "name": "wrapt",
+          "version": "1.17.3",
+          "vulns": []
+        },
+        {
+          "name": "zipp",
+          "version": "3.23.0",
+          "vulns": []
+        }
+      ],
+      "fixes": []
+    },
+    "languages.txt": {
+      "raw_text": "Detected languages: Java, JavaScript/TypeScript/Node.js, Python\n\nScanner configuration:\n  \u2713 bandit\n  \u2713 pip_audit\n  \u2713 npm_audit\n  \u2713 eslint\n  \u2713 spotbugs\n  \u2713 dependency_check_java\n  \u2717 gosec\n  \u2717 nancy\n  \u2713 semgrep\n  \u2713 trivy\n\nSemgrep configs: p/python, p/javascript, p/security-audit, p/react, p/java, p/typescript, p/owasp-top-ten\n"
+    }
+  },
+  "metrics": {
+    "bandit-report.json": {
+      "size_bytes": 17888
+    },
+    "semgrep-report.json": {
+      "size_bytes": 72832
+    },
+    "pip-audit-report.json": {
+      "size_bytes": 7882
+    }
+  }
+}
