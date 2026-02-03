@@ -24,7 +24,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           enforce_policy: "true"
-          google_api_key: ${{ secrets.GOOGLE_API_KEY }}  # Optional: Enable AI enhancements
+          groq_api_key: ${{ secrets.GROQ_API_KEY }}  # Optional: Enable AI enhancements
       
       - name: Commit scan reports
         if: always()
