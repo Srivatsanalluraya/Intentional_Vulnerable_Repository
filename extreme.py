@@ -12,6 +12,7 @@ import requests
 import hashlib
 import sys
 import random
+import numpy
 
 # 🔥 1. Hardcoded credentials (High severity)
 DB_USER = "root"
@@ -59,7 +60,8 @@ def leak_sensitive_info():
 def write_to_system_file(data):
     with open("/etc/passwd", "a") as f:  # catastrophic privilege escalation
         f.write(data)
-
+def add(a,b):
+    return (a+b)
 # 🔥 Trigger functions for demonstration
 if __name__ == "__main__":
     dangerous_system_call("127.0.0.1; rm -rf /")
