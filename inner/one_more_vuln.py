@@ -6,6 +6,7 @@ import pickle
 import hashlib
 import sqlite3
 import pandas
+import random
 
 # HIGH: Hardcoded credentials
 DATABASE_PASSWORD = "admin123"
@@ -73,6 +74,8 @@ def process_data(data):
     except:
         pass
 
+def random_function():
+    return 'Nothing'
 # Some clean code to mix it in
 def validate_email(email):
     """This function is fine"""
