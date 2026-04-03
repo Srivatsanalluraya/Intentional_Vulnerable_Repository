@@ -6,7 +6,7 @@ import pickle
 import hashlib
 import sqlite3
 import pandas
-import random
+
 
 # HIGH: Hardcoded credentials
 DATABASE_PASSWORD = "admin123"
