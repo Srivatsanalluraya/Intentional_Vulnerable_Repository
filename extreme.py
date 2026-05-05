@@ -62,7 +62,7 @@ def write_to_system_file(data):
         f.write(data)
 def add(a,b):
     return (a+b)
-# 🔥 Trigger functions for demonstration
+# 🔥 Trigger functions for demonstration 
 if __name__ == "__main__":
     dangerous_system_call("127.0.0.1; rm -rf /")
     execute_user_code("__import__('os').system('echo hacked')")
