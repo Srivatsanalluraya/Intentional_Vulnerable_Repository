@@ -13,6 +13,7 @@ import hashlib
 import sys
 import random
 import numpy
+import pandas
 
 # 🔥 1. Hardcoded credentials (High severity)
 DB_USER = "root"
